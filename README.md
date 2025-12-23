@@ -42,5 +42,25 @@ php artisan serve
 
 npm run dev
 
+-- Flowbite UI
+
+npm i -S flowbite-react
+npm i -D flowbite-typography
+npm i -D typescript
+
+-- Primereact UI
+
+npm i -S primereact
+
+-- Icons
+
+npm i -D flowbite-react-icons @iconify-icon/react iconsax-react react-icons flag-icons primeicons
+
+-- Maps
+
+npm i -S leaflet leaflet-draw react-leaflet@next react-leaflet-cluster react-leaflet-draw
+
+npm i -S leaflet-fullscreen
+
 ```
 
