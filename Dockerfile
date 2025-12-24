@@ -24,11 +24,19 @@ COPY . /var/www/html
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 RUN composer install --no-interaction --optimize-autoloader \
-    && npm install \
-    && npm run build
+    && npm install
 
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
+# Ownership
+RUN chown -R www-data:www-data /var/www/html
+
+# App files: read-only for group
+RUN chmod -R 755 /var/www/html
+
+# Writable Laravel directories
+RUN chmod -R 775 storage bootstrap/cache public/build
+
+EXPOSE 80
+#EXPOSE 5173
 
 COPY startapache.sh /startapache.sh
 RUN chmod +x /startapache.sh

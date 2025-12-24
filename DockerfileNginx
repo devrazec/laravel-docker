@@ -27,12 +27,16 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Install deps
 RUN composer install --no-interaction --optimize-autoloader \
-    && npm install \
-    && npm run build
+    && npm install
 
-# Permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
+# Ownership
+RUN chown -R www-data:www-data /var/www/html
+
+# App files: read-only for group
+RUN chmod -R 755 /var/www/html
+
+# Writable Laravel directories
+RUN chmod -R 775 storage bootstrap/cache public/build
 
 EXPOSE 80
 EXPOSE 5173
