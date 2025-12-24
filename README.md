@@ -70,7 +70,9 @@ npm i -S leaflet-fullscreen
 
 -- Docker
 
-docker build -t laravel-docker -f Dockerfile .
+docker build -t laravel-docker -f DockerfileApache .
+
+docker build -t laravel-docker -f DockerfileNginx .
 
 docker run -itd \
 --restart unless-stopped \

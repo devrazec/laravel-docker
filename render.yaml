@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: laravel
+    env: docker
+    plan: free
+    autoDeploy: true
