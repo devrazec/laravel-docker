@@ -1,6 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
-const classList = require('./.flowbite-react/class-list.json');
+import flowbiteClassList from './resources/css/flowbite-react/class-list.json';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -11,7 +11,7 @@ export default {
         './resources/js/**/*.jsx',
         '../../modules/flowbite-react/**/*.js'
     ],
-    safelist: classList,
+    safelist: flowbiteClassList,
     theme: {
         extend: {
             fontFamily: {
