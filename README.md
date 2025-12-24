@@ -84,6 +84,14 @@ laravel-docker
 
 ```
 
+# Demo
+
+https://laravel-docker-1kqh.onrender.com/
+
 # Links
 
+https://flowbite.com/icons/
 
+https://flowbite-react.com/
+
+https://flowbite.com/blocks/
