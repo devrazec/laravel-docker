@@ -37,6 +37,7 @@ npm run build
 
 composer require symfony/clock:^7.0 symfony/css-selector:^7.0
 composer update
+change /laravel-docker/composer.lock where are "php": "^8.4", to 8.2
 
 -- Run Bankend
 
