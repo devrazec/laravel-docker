@@ -30,8 +30,6 @@ RUN composer install --no-interaction --optimize-autoloader \
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
 
-EXPOSE 80
-
 COPY startapache.sh /startapache.sh
 RUN chmod +x /startapache.sh
 
