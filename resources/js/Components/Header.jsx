@@ -52,7 +52,7 @@ import {
 } from 'flowbite-react-icons/outline';
 import { twMerge } from 'tailwind-merge';
 
-const Header1 = () => {
+const Header = () => {
 
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [item1, setItem1] = useState(2);
@@ -1734,4 +1734,4 @@ const Header1 = () => {
   );
 };
 
-export default React.memo(Header1);
+export default React.memo(Header);

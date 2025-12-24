@@ -1,7 +1,7 @@
 import '../css/app.css';
 import './bootstrap';
 import 'primereact/resources/themes/lara-light-blue/theme.css';
-import 'primereact/resources/primereact.min.css'
+import 'primereact/resources/primereact.min.css';
 import 'flag-icons/css/flag-icons.min.css';
 
 import { createInertiaApp } from '@inertiajs/react';
