@@ -9,7 +9,6 @@ php artisan route:clear
 php artisan config:cache
 php artisan route:cache
 
-touch /var/www/html/database/database.sqlite
 php artisan migrate --force
 
 # Start Apache in the background

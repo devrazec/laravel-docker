@@ -78,7 +78,7 @@ docker run -itd \
 --restart unless-stopped \
 --name laravel-docker \
 --hostname laravel-docker.local \
--p 8080:8080 \
+-p 80:80 \
 -p 5173:5173 \
 laravel-docker
 
