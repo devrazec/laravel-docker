@@ -1,6 +1,6 @@
-# laravel-docker
+# Laravel as a Docker on render.com
 
-Building a Project with Laravel + React + Docker + Nginx + SQLite
+Building a Project with Laravel + React + Docker + Apache + SQLite
 
 # Commands
 
