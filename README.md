@@ -52,7 +52,7 @@ npm run dev
 
 npm i -S flowbite-react
 npm i -D flowbite-typography
-npm i -D typescript
+npm i -S tailwind-merge lucide-react tw-animate-css
 
 -- Primereact UI
 
@@ -83,5 +83,7 @@ docker run -itd \
 laravel-docker
 
 ```
+
+# Links
 
 
