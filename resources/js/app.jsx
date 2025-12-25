@@ -4,7 +4,6 @@ import './bootstrap';
 import 'primereact/resources/themes/lara-dark-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 //import '../css/flowbite-primereact.css';
-import 'flag-icons/css/flag-icons.min.css';
 
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';

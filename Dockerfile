@@ -36,9 +36,8 @@ RUN chmod -R 755 /var/www/html
 RUN chmod -R 775 storage bootstrap/cache public/build
 
 EXPOSE 80
-#EXPOSE 5173
 
-COPY startapache.sh /startapache.sh
-RUN chmod +x /startapache.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/startapache.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

@@ -21,7 +21,6 @@ php artisan migrate:fresh
 php artisan db:seed
 
 php artisan key:generate
-php artisan key:generate --show
 
 -- Edit composer.json 
 
@@ -60,19 +59,11 @@ npm i -S primereact
 
 -- Icons
 
-npm i -D flowbite-react-icons @iconify-icon/react iconsax-react react-icons flag-icons primeicons
-
--- Maps
-
-npm i -S leaflet leaflet-draw react-leaflet@next react-leaflet-cluster react-leaflet-draw
-
-npm i -S leaflet-fullscreen
+npm i -D flowbite-react-icons @iconify-icon/react iconsax-react react-icons primeicons
 
 -- Docker
 
-docker build -t laravel-docker -f DockerfileApache .
-
-docker build -t laravel-docker -f DockerfileNginx .
+docker build -t laravel-docker -f Dockerfile .
 
 docker run -itd \
 --restart unless-stopped \
@@ -87,11 +78,11 @@ laravel-docker
 
 http://localhost:3000/searchbar
 
-![Pic1](./public/img/pic1.png)
-![Pic2](./public/img/pic2.png)
-![Pic3](./public/img/pic3.png)
-![Pic4](./public/img/pic4.png)
-![Pic5](./public/img/pic5.png)
+![Pic1](./public/image/pic1.png)
+![Pic2](./public/image/pic2.png)
+![Pic3](./public/image/pic3.png)
+![Pic4](./public/image/pic4.png)
+![Pic5](./public/image/pic5.png)
 
 
 # Demo
