@@ -71,7 +71,7 @@ const BookDataView = () => {
 
   const header = () => {
     return (
-      <div>
+      <div className="flex items-center justify-end">
         <DataViewLayoutOptions layout={bookLayout} onChange={(e) => setBookLayout(e.value)} />
       </div>
     );

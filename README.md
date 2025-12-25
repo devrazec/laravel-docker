@@ -76,7 +76,7 @@ laravel-docker
 
 # Web Interface
 
-http://localhost:3000/searchbar
+http://127.0.0.1:8080/
 
 ![Pic1](./public/image/pic1.png)
 ![Pic2](./public/image/pic2.png)
@@ -88,6 +88,7 @@ http://localhost:3000/searchbar
 # Demo
 
 https://laravel-docker-1kqh.onrender.com/
+
 
 # Links
 
