@@ -36,11 +36,11 @@ const AddBook = () => {
       >
         {/* Add blue border around modal */}
         <div className="rounded-xl border-4 border-blue-500 dark:border-blue-400 overflow-hidden">
-          <ModalHeader className="dark:bg-gray-800">
+          <ModalHeader className="dark:bg-gray-00">
             Add Book
           </ModalHeader>
 
-          <ModalBody>
+          <ModalBody className="dark:bg-gray-800">
             <form className="space-y-6">
               {/* Book Info */}
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

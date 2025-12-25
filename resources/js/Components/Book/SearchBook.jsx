@@ -62,16 +62,15 @@ const SearchBook = () => {
 
     return (
         <>
-
             <SidebarItem href="#" icon={HiOutlineSearch} color="blue" onClick={() => setOpen(!isOpen)}>
                 Search
             </SidebarItem>
             <Modal onClose={() => setOpen(false)} show={isOpen} size="7xl" dismissible>
                 <div className="rounded-xl border-4 border-blue-500 dark:border-blue-400 overflow-hidden">
-                    <ModalHeader className="border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800">
+                    <ModalHeader className="border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
                         Search Book
                     </ModalHeader>
-                    <ModalBody>
+                    <ModalBody className="dark:bg-gray-900">
                         <div className="relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
                             <DataTable
                                 value={dataBook}
@@ -93,7 +92,6 @@ const SearchBook = () => {
                                 <Column field="price" header="Price" sortable />
                             </DataTable>
                         </div>
-
                     </ModalBody>
                 </div>
             </Modal>

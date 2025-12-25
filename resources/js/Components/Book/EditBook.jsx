@@ -27,9 +27,9 @@ const EditBook = () => {
             <Modal show={isOpen} onClose={() => setOpen(false)} size="lg" dismissible>
                 <div className="rounded-xl border-4 border-blue-500 dark:border-blue-400 overflow-hidden">
 
-                    <ModalHeader className="dark:bg-gray-800">Edit book</ModalHeader>
+                    <ModalHeader className="dark:bg-gray-700">Edit book</ModalHeader>
 
-                    <ModalBody>
+                    <ModalBody className="dark:bg-gray-800">
                         <form className="space-y-6">
                             {/* Book details */}
                             <div>
