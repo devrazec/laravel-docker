@@ -2,45 +2,16 @@ import React, { useContext, useState, useEffect, useMemo } from 'react';
 import { GlobalContext } from '@/Context/GlobalContext';
 
 import {
-    theme,
-    Breadcrumb,
-    BreadcrumbItem,
-    Button,
-    Checkbox,
-    Label,
     Modal,
     ModalBody,
     ModalFooter,
     ModalHeader,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeadCell,
-    TableRow,
-    Textarea,
-    TextInput,
     SidebarItem,
 } from "flowbite-react";
 import { twMerge } from 'tailwind-merge';
 import { Link } from '@inertiajs/react';
 import { FaPlus } from "react-icons/fa";
 import {
-    HiChevronLeft,
-    HiChevronRight,
-    HiCog,
-    HiDotsVertical,
-    HiExclamationCircle,
-    HiHome,
-    HiOutlineExclamationCircle,
-    HiOutlineUpload,
-    HiPencilAlt,
-    HiTrash,
-    HiClipboard,
-    HiOutlinePlusCircle,
-    HiOutlineTrash,
-    HiDocumentReport,
-    HiFilter,
     HiOutlineSearch,
 } from "react-icons/hi";
 import { Icon } from '@iconify-icon/react';
@@ -83,7 +54,7 @@ const SearchBook = () => {
                                 filterDisplay="row"
                                 selectionMode="single"
                                 tableStyle={{ minWidth: '50rem' }}
-                                //className="flowbite-datatable"
+                                className="text-gray-800"
                             >
                                 <Column field="image" header="Image" body={imageBodyTemplate} style={{ width: '12%' }} />
                                 <Column field="title" header="Title" sortable filter style={{ width: '35%' }} />

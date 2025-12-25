@@ -35,7 +35,6 @@ const BookDataView = () => {
     ? 'w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/3'
     : 'w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6';
 
-
   const listClass = mapPanel
     ? `
     flex flex-col xl:flex-row xl:items-start
@@ -82,8 +81,8 @@ const BookDataView = () => {
       <div
         key={book.id}
         className={`${listClass}
-        ${selectedBook?.id === book.id ? 'ring-2 ring-blue-500' : ''}
-        ${hoverBookId === book.id ? 'ring-1 ring-gray-300' : ''}
+        ${selectedBook?.id === book.id ? 'shadow-selected border-blue-500' : ''}
+        ${hoverBookId === book.id ? 'shadow-selected border-blue-500' : ''}
       `}
         style={itemStyle}
         onMouseEnter={() => setHoverBookId(book.id)}
@@ -151,8 +150,8 @@ const BookDataView = () => {
           bg-white shadow-md
           hover:shadow-lg transition
           cursor-pointer
-          ${selectedBook?.id === book.id ? 'ring-2 ring-blue-500' : ''}
-          ${hoverBookId === book.id ? 'ring-1 ring-gray-300' : ''}
+          ${selectedBook?.id === book.id ? 'shadow-selected border-blue-500' : ''}
+          ${hoverBookId === book.id ? 'shadow-selected border-blue-500' : ''}
         `}
           onMouseEnter={() => setHoverBookId(book.id)}
           onMouseLeave={() => setHoverBookId(null)}
