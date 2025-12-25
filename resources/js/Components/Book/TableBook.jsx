@@ -112,7 +112,7 @@ const BookDataView = () => {
               <span className="flex items-center gap-2 text-sm text-gray-700">
                 <i className="pi pi-tag"></i>
                 <span className="font-semibold">
-                  {book.originalPrice}
+                  Original: {book.originalPrice}
                 </span>
               </span>
 
@@ -128,7 +128,7 @@ const BookDataView = () => {
           {/* Right content */}
           <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-2 w-full sm:w-auto">
             <span className="text-lg font-semibold text-gray-900">
-              € {book.price}
+              {book.price}
             </span>
 
             <Button
@@ -199,7 +199,7 @@ const BookDataView = () => {
           {/* Footer */}
           <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
             <span className="text-base font-semibold text-gray-900">
-              € {book.price}
+              {book.price}
             </span>
 
             <Button
