@@ -1,6 +1,6 @@
 # Laravel as a Docker on render.com
 
-Building a Project with Laravel + React + Docker + Apache + SQLite
+Building a Project with Laravel + Breeze + Inertia + React + Docker + Apache + SQLite
 
 # Commands
 
@@ -79,7 +79,6 @@ docker run -itd \
 --name laravel-docker \
 --hostname laravel-docker.local \
 -p 80:80 \
--p 5173:5173 \
 laravel-docker
 
 ```
@@ -95,3 +94,7 @@ https://flowbite.com/icons/
 https://flowbite-react.com/
 
 https://flowbite.com/blocks/
+
+https://icon-sets.iconify.design/
+
+https://react-icons.github.io/react-icons/icons/hi/

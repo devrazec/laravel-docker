@@ -21,6 +21,7 @@ import {
 //import Link from "next/link";
 import { Link } from '@inertiajs/react';
 import React, { useContext, useState, useEffect } from 'react';
+import { GlobalContext } from '@/Context/GlobalContext';
 import {
   HiAdjustments,
   HiArchive,
@@ -44,9 +45,32 @@ import {
   HiUserCircle,
   HiUsers,
   HiViewGrid,
+  HiBookOpen,
+  HiOutlineCog,
+  HiOutlineSearch,
 } from "react-icons/hi";
+import AddBook from './Book/AddBook';
+import EditBook from './Book/EditBook';
+import SearchBook from './Book/SearchBook';
+import DeleteBook from './Book/DeleteBook';
+import ReportBook from './Book/ReportBook';
+import TableBook from './Book/TableBook';
 
 const Home = () => {
+
+  const {
+      dataBook,
+      bookLayout,
+      selectedBook,
+      setSelectedBook,
+      hoverBookId,
+      setHoverBookId,
+      filteredBook,
+      mapPanel,
+      setBookLayout,
+      selectedBookName,
+      setSelectedBookName,
+    } = useContext(GlobalContext);
 
   const [isMobile, setMobile] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -86,7 +110,16 @@ const Home = () => {
                   <HiMenuAlt1 className="h-6 w-6" />
                 </div>
               </button>
-              <NavbarBrand href="/" className="mr-4">
+              <NavbarBrand href="/">
+                <div className="flex items-center gap-2 h-8 mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 64 64"><path fill="#256382" d="m55 35.1l7.5 7.4l-33.3 15.9s-4.4 2-6.5-1.2C14.5 44.4 55 35.1 55 35.1"/><path fill="#d9e3e8" d="M28.4 49.1s-6.4 2.2-5.2 6.5c1.2 4.4 6.3 1.7 6.3 1.7l31.6-14.7s-1.8-4.7 1.4-7.8z"/><path fill="#1c58b9" d="M33.7 5L64 34.5l-35.8 14l-23-35.8z"/><path fill="#fff" d="m34.6 11.7l5.8 6.2l-21.7 7.8l-5.1-7.9z"/><path fill="#94989b" d="m61 38l-21.1 8.6l20.8-9.5zm-.3 2.6l-22.5 9.3l22.1-10.3zm.2 1.4L32.2 54.5l28.3-13.4z"/><path fill="#428bc1" d="M22.7 57.2c-3.5-7.3 5.5-8.6 5.5-8.6l-23-35.9S0 12.6 0 18c0 2.2 1 3.9 1 3.9z"/></svg>
+                  <span className="text-xl sm:text-2xl font-bold tracking-tight leading-none dark:text-white">
+                    Book<span className="text-blue-500">Store</span>
+                  </span>
+                </div>
+              </NavbarBrand>
+
+              {/* <NavbarBrand href="/" className="mr-4">
                 <img
                   className="mr-3 h-8"
                   alt=""
@@ -95,9 +128,9 @@ const Home = () => {
                   height={32}
                 />
                 <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-                  Flowbite
+                  BookStore
                 </span>
-              </NavbarBrand>
+              </NavbarBrand> */}
               <form className="hidden lg:block lg:pl-2">
                 <Label htmlFor="search" className="sr-only">
                   Search
@@ -107,9 +140,11 @@ const Home = () => {
                   icon={HiSearch}
                   id="search"
                   name="search"
+                  value={selectedBookName || ''}
+                  onChange={e => setSelectedBookName(e.target.value)}
                   placeholder="Search"
                   required
-                  type="search"
+                  //type="search"
                 />
               </form>
             </div>
@@ -571,45 +606,16 @@ const Home = () => {
                 </form>
                 <SidebarItems className="pb-32">
                   <SidebarItemGroup>
-                    <SidebarItem href="#" icon={HiChartPie}>
-                      Overview
+                    <SidebarItem href="#" icon={HiBookOpen}>
+                      Books
                     </SidebarItem>
-                    <SidebarCollapse icon={HiDocument} label="Pages">
-                      <SidebarItem href="#">Settings</SidebarItem>
-                      <SidebarItem href="#">Kanban</SidebarItem>
-                      <SidebarItem href="#">Calendar</SidebarItem>
-                    </SidebarCollapse>
-                    <SidebarCollapse icon={HiShoppingBag} label="Sales">
-                      <SidebarItem href="#">Products</SidebarItem>
-                      <SidebarItem href="#">Billing</SidebarItem>
-                      <SidebarItem href="#">Invoice</SidebarItem>
-                    </SidebarCollapse>
-                    <SidebarItem
-                      href="#"
-                      icon={HiFolderDownload}
-                      className="pr-0 [&>span]:pr-2"
-                    >
-                      <div className="flex items-center justify-between">
-                        Messages
-                        <Badge className="rounded-full">4</Badge>
-                      </div>
-                    </SidebarItem>
-                    <SidebarCollapse
-                      icon={HiLockClosed}
-                      label="Authentication"
-                    >
-                      <SidebarItem href="#">Sign In</SidebarItem>
-                      <SidebarItem href="#">Sign Up</SidebarItem>
-                      <SidebarItem href="#">Forgot Password</SidebarItem>
-                    </SidebarCollapse>
+                      <AddBook />
+                      <EditBook />
+                      <SearchBook />
+                      <DeleteBook />
                   </SidebarItemGroup>
                   <SidebarItemGroup>
-                    <SidebarItem href="#" icon={HiClipboard}>
-                      Docs
-                    </SidebarItem>
-                    <SidebarItem href="#" icon={HiCollection}>
-                      Components
-                    </SidebarItem>
+                   
                     <SidebarItem href="#" icon={HiInformationCircle}>
                       Help
                     </SidebarItem>
@@ -836,26 +842,9 @@ const Home = () => {
         </DrawerItems>
       </Drawer>
       <div className="mt-16 h-auto p-4 md:ml-64">
-        <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="h-32 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-64"></div>
-          <div className="h-32 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-64"></div>
-          <div className="h-32 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-64"></div>
-          <div className="h-32 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-64"></div>
-        </div>
-        <div className="mb-4 h-96 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600"></div>
-        <div className="mb-4 grid grid-cols-2 gap-4">
-          <div className="h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-72"></div>
-          <div className="h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-72"></div>
-          <div className="h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-72"></div>
-          <div className="h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-72"></div>
-        </div>
-        <div className="mb-4 h-96 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600"></div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-72"></div>
-          <div className="h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-72"></div>
-          <div className="h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-72"></div>
-          <div className="h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 md:h-72"></div>
-        </div>
+          <TableBook />
+       
+        
       </div>
     </div>
   );
