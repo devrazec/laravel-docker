@@ -92,28 +92,42 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:255',
             'price' => 'nullable|string|max:50',
             'detail' => 'nullable|string',
-            'filename' => 'nullable|file|max:10240',
+            'filename' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:10240',
+            'remove_image' => 'nullable|boolean',
         ]);
 
-        $filename = $book->filename; // keep existing filename if no new file is uploaded
-        if ($request->hasFile('filename')) {
-            $filename = $request->file('filename')->store('books');
+        // Update text fields
+        $data = collect($validated)->except(['filename', 'remove_image'])->toArray();
+
+        /**
+         * Remove existing image
+         */
+        if ($request->boolean('remove_image') && $book->filename) {
+            \Storage::delete('books/' . $book->filename);
+            $data['filename'] = null;
         }
 
-        $book->update([
-            'title' => $request->title,
-            'author' => $request->author,
-            'category' => $request->category,
-            'price' => $request->price,
-            'detail' => $request->detail,
-            'filename' => $filename,
-        ]);
+        /**
+         * Upload new image
+         */
+        if ($request->hasFile('filename')) {
+
+            // Delete old image
+            if ($book->filename) {
+                \Storage::delete('books/' . $book->filename);
+            }
+
+            $path = $request->file('filename')->store('books');
+            $data['filename'] = basename($path);
+        }
+
+        $book->update($data);
 
         return back()->with('success', 'Book updated successfully.');
     }

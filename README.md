@@ -101,6 +101,9 @@ php artisan make:seeder BooksSeeder
 php artisan migrate:fresh
 php artisan db:seed --class=BooksSeeder
 
+php artisan make:middleware TrustProxies
+
+
 ```
 
 # Web Interface
