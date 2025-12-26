@@ -76,6 +76,10 @@ docker run -itd \
 -p 80:80 \
 laravel-docker
 
+-- Git
+
+git add -f storage/app/private/books
+
 ```
 
 # CRUD
@@ -92,6 +96,10 @@ php artisan tinker
 use App\Models\Book;
 Book::create(['title' => 'It works']);
 Book::all();
+
+php artisan make:seeder BooksSeeder
+php artisan migrate:fresh
+php artisan db:seed --class=BooksSeeder
 
 ```
 
@@ -110,6 +118,7 @@ http://127.0.0.1:8080/
 
 https://laravel-docker-1kqh.onrender.com/
 
+https://dashboard.render.com/
 
 # Links
 

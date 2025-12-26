@@ -95,6 +95,7 @@ const IndexBook = () => {
             src={`/books/image/${book.filename}`}
             alt={book.title}
             className="max-w-full object-contain"
+            preview
           />
         </div>
 
@@ -125,9 +126,9 @@ const IndexBook = () => {
           </div>
 
           {/* Right content */}
-          <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-2 w-full sm:w-auto">
+          <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-2 w-full sm:w-30">
             <span className="text-lg font-semibold text-gray-900">
-              {book.price}
+              € {book.price}
             </span>
 
             <Button
@@ -179,6 +180,8 @@ const IndexBook = () => {
       shadow-sm
       bg-gray-50
     "
+            preview
+
             />
           </div>
 
@@ -198,7 +201,7 @@ const IndexBook = () => {
           {/* Footer */}
           <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
             <span className="text-base font-semibold text-gray-900">
-              {book.price}
+              € {book.price}
             </span>
 
             <Button
