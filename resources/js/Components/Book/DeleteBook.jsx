@@ -45,49 +45,40 @@ import { Bars, Search } from 'flowbite-react-icons/outline';
 
 const DeleteBook = () => {
 
-    const { mode, themeMode, dataBook, totalBook, filteredBook } = useContext(GlobalContext)
-
-    const [isOpen, setOpen] = useState(false);
+    const { mode, themeMode, dataBook, totalBook, filteredBook, modalBookDelete, setModalBookDelete, } = useContext(GlobalContext)
 
     return (
-        <>
-
-            <SidebarItem href="#" icon={HiOutlineTrash} color="blue" onClick={() => setOpen(!isOpen)}>
-                Delete
-            </SidebarItem>
-            <Modal onClose={() => setOpen(false)} show={isOpen} size="md" dismissible>
-            <div className="rounded-xl border-4 border-blue-500 dark:border-blue-400 overflow-hidden">
+        <Modal onClose={() => setModalBookDelete(false)} show={modalBookDelete} size="md" dismissible>
+            <div className="rounded-xl border-4 border-blue-500 dark:border-blue-500 overflow-hidden">
                 <ModalHeader className="border-none p-2 dark:bg-gray-800">
                     <span className="sr-only">Delete Book</span>
                 </ModalHeader>
                 <ModalBody className="px-6 pt-0 pb-6">
                     <div className="flex flex-col items-center gap-y-6 text-center">
                         <HiOutlineExclamationCircle className="mx-auto h-20 w-20 text-red-600" />
-                        <p className="text-xl font-normal text-gray-500 dark:text-gray-400">
+                        <p className="text-xl font-normal text-gray-50 dark:text-gray-50">
                             Are you sure you want to delete this Book?
                         </p>
                         <div className="flex items-center gap-x-3">
                             <Button
                                 color="red"
                                 theme={{ base: "px-0" }}
-                                onClick={() => setOpen(false)}
+                                onClick={() => setModalBookDelete(false)}
                             >
-                                <span className="text-base font-medium">Yes, I'm sure</span>
+                                <span className="text-base font-medium dark:text-gray-50">Yes, I'm sure</span>
                             </Button>
                             <Button
                                 color="alternative"
                                 theme={{ base: "px-0" }}
-                                onClick={() => setOpen(false)}
+                                onClick={() => setModalBookDelete(false)}
                             >
-                                <span className="text-base font-medium">No, cancel</span>
+                                <span className="text-base font-medium dark:text-gray-50">No, cancel</span>
                             </Button>
                         </div>
                     </div>
                 </ModalBody>
-                </div>
-            </Modal>
-
-        </>
+            </div>
+        </Modal>
     );
 }
 

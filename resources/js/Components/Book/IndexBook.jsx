@@ -1,9 +1,44 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { GlobalContext } from '@/Context/GlobalContext';
-import { Button } from 'primereact/button';
+import { Button, SidebarItem, } from "flowbite-react";
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Tag } from 'primereact/tag';
 import { Image } from 'primereact/image';
+import {
+  HiAdjustments,
+  HiArchive,
+  HiBell,
+  HiChartPie,
+  HiClipboard,
+  HiCog,
+  HiCollection,
+  HiCurrencyDollar,
+  HiDocument,
+  HiEye,
+  HiFolderDownload,
+  HiInbox,
+  HiInformationCircle,
+  HiLockClosed,
+  HiLogout,
+  HiMenuAlt1,
+  HiOutlineTicket,
+  HiSearch,
+  HiShoppingBag,
+  HiUserCircle,
+  HiUsers,
+  HiViewGrid,
+  HiBookOpen,
+  HiOutlineCog,
+  HiOutlineSearch,
+  HiPencilAlt,
+  HiTrash,
+} from "react-icons/hi";
+
+import CreateBook from './CreateBook';
+import UpdateBook from './UpdateBook';
+import DeleteBook from './DeleteBook';
+import SearchBook from './SearchBook';
+
 
 const IndexBook = () => {
   const {
@@ -16,6 +51,11 @@ const IndexBook = () => {
     filteredBook,
     mapPanel,
     setBookLayout,
+    modalBookCreate, setModalBookCreate,
+    modalBookShow, setModalBookShow,
+    modalBookUpdate, setModalBookUpdate,
+    modalBookDelete, setModalBookDelete,
+    modalBookSearch, setModalBookSearch,
   } = useContext(GlobalContext);
 
   const [firstRecord, setFirstRecord] = useState(0);
@@ -56,9 +96,9 @@ const IndexBook = () => {
   const getSeverity = book => {
     switch (book.discount) {
       case '-10%':
-        return 'success';
-      case '-20%':
         return 'info';
+      case '-20%':
+        return 'success';
       case '-30%':
         return 'danger';
       case '-40%':
@@ -116,7 +156,7 @@ const IndexBook = () => {
                 </span>
               </span>
 
-              <Tag value="-10%" severity="success" />
+              <Tag value="-10%" severity="info" />
             </div>
 
             {/* Author */}
@@ -165,7 +205,7 @@ const IndexBook = () => {
               <span>{book.category}</span>
             </div>
 
-            <Tag value="-10%" severity="success" />
+            <Tag value="-10%" severity="info" />
           </div>
 
           {/* Image */}
@@ -180,7 +220,7 @@ const IndexBook = () => {
       shadow-sm
       bg-gray-50
     "
-            preview
+              preview
 
             />
           </div>
@@ -204,10 +244,14 @@ const IndexBook = () => {
               € {book.price}
             </span>
 
-            <Button
-              icon="pi pi-shopping-cart"
-              className="p-button-rounded"
-            />
+            <div className="flex flex-wrap gap-2">
+              <Button pill color="blue" className="rounded-full px-2.5" size="xs" onClick={() => setModalBookUpdate(true)}>
+                <HiPencilAlt className="h-4 w-4" />
+              </Button>
+              <Button pill color="red" className="rounded-full px-2.5" size="xs" onClick={() => setModalBookDelete(true)}>
+                <HiTrash className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -242,25 +286,31 @@ const IndexBook = () => {
   };
 
   return (
-    <div className="card" style={{ height: '100%', overflowY: 'auto' }}>
-      <div className="rounded-xl border-4 border-blue-500 dark:border-blue-400 overflow-hidden">
-        <DataView
-          value={data}
-          listTemplate={listTemplate}
-          layout={bookLayout}
-          lazy
-          paginator
-          alwaysShowPaginator
-          paginatorPosition="bottom"
-          rows={numberRecords}
-          first={firstRecord}
-          totalRecords={totalRecords}
-          rowsPerPageOptions={[10, 20, 30]}
-          onPage={onPage}
-          header={header()}
-        />
+    <>
+      <CreateBook />
+      <UpdateBook />
+      <DeleteBook />
+      <SearchBook />
+      <div className="card" style={{ height: '100%', overflowY: 'auto' }}>
+        <div className="rounded-xl border-4 border-blue-500 dark:border-blue-500 overflow-hidden">
+          <DataView
+            value={data}
+            listTemplate={listTemplate}
+            layout={bookLayout}
+            lazy
+            paginator
+            alwaysShowPaginator
+            paginatorPosition="bottom"
+            rows={numberRecords}
+            first={firstRecord}
+            totalRecords={totalRecords}
+            rowsPerPageOptions={[10, 20, 30]}
+            onPage={onPage}
+            header={header()}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

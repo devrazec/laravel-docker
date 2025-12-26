@@ -23,9 +23,9 @@ import { Image } from 'primereact/image';
 
 const SearchBook = () => {
 
-    const { mode, themeMode, dataBook, totalBook, filteredBook } = useContext(GlobalContext)
-
-    const [isOpen, setOpen] = useState(false);
+    const { mode, themeMode, dataBook, totalBook, filteredBook,
+        modalBookSearch, setModalBookSearch,
+    } = useContext(GlobalContext);
 
     const imageBodyTemplate = (rowData) => {
         const imageUrl = `/books/image/${rowData.filename}`;
@@ -33,41 +33,36 @@ const SearchBook = () => {
     };
 
     return (
-        <>
-            <SidebarItem href="#" icon={HiOutlineSearch} color="blue" onClick={() => setOpen(!isOpen)}>
-                Search
-            </SidebarItem>
-            <Modal onClose={() => setOpen(false)} show={isOpen} size="7xl" dismissible>
-                <div className="rounded-xl border-4 border-blue-500 dark:border-blue-400 overflow-hidden">
-                    <ModalHeader className="border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
-                        Search Book
-                    </ModalHeader>
-                    <ModalBody className="dark:bg-gray-900">
-                        <div className="relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-                            <DataTable
-                                value={dataBook}
-                                stripedRows
-                                scrollable
-                                scrollHeight="500px"
-                                paginator
-                                rows={5}
-                                rowsPerPageOptions={[5, 10, 25, 50]}
-                                filterDisplay="row"
-                                selectionMode="single"
-                                tableStyle={{ minWidth: '50rem' }}
-                                className="text-gray-800"
-                            >
-                                <Column field="filename" header="Image" body={imageBodyTemplate} style={{ width: '12%' }} />
-                                <Column field="title" header="Title" sortable filter style={{ width: '35%' }} />
-                                <Column field="author" header="Author" sortable filter style={{ width: '35%' }} />
-                                <Column field="category" header="Category" sortable filter style={{ width: '25%' }} />
-                                <Column field="price" header="Price" sortable />
-                            </DataTable>
-                        </div>
-                    </ModalBody>
-                </div>
-            </Modal>
-        </>
+        <Modal onClose={() => setModalBookSearch(false)} show={modalBookSearch} size="7xl" dismissible>
+            <div className="rounded-xl border-4 border-blue-500 dark:border-blue-500 overflow-hidden">
+                <ModalHeader className="border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
+                    Search Book
+                </ModalHeader>
+                <ModalBody className="dark:bg-gray-900">
+                    <div className="relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                        <DataTable
+                            value={dataBook}
+                            stripedRows
+                            scrollable
+                            scrollHeight="500px"
+                            paginator
+                            rows={5}
+                            rowsPerPageOptions={[5, 10, 25, 50]}
+                            filterDisplay="row"
+                            selectionMode="single"
+                            tableStyle={{ minWidth: '50rem' }}
+                            className="text-gray-800"
+                        >
+                            <Column field="filename" header="Image" body={imageBodyTemplate} style={{ width: '12%' }} />
+                            <Column field="title" header="Title" sortable filter style={{ width: '35%' }} />
+                            <Column field="author" header="Author" sortable filter style={{ width: '35%' }} />
+                            <Column field="category" header="Category" sortable filter style={{ width: '25%' }} />
+                            <Column field="price" header="Price" sortable />
+                        </DataTable>
+                    </div>
+                </ModalBody>
+            </div>
+        </Modal>
     );
 }
 

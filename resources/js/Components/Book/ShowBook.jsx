@@ -60,16 +60,12 @@ const ShowBook = () => {
 
     return (
         <>
-
-            <SidebarItem href="#" icon={HiDocumentReport} color="blue" onClick={() => setOpenReport(!isOpenReport)}>
-                Show
-            </SidebarItem>
             <Modal onClose={() => setOpenReport(false)} show={isOpenReport} size="7xl" dismissible>
                 <ModalHeader className="border-b border-gray-200 dark:border-gray-600">
                     Show Book
                 </ModalHeader>
                 <ModalBody>
-                    
+
 
                 </ModalBody>
             </Modal>

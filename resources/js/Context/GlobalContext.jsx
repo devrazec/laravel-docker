@@ -33,6 +33,12 @@ export function GlobalProvider({ children }) {
   const [bookLayout, setBookLayout] = useState('grid');
   const [mapPanel, setMapPanel] = useState(false);
 
+  const [modalBookCreate, setModalBookCreate] = useState(false);
+  const [modalBookShow, setModalBookShow] = useState(false);
+  const [modalBookUpdate, setModalBookUpdate] = useState(false);
+  const [modalBookDelete, setModalBookDelete] = useState(false);
+  const [modalBookSearch, setModalBookSearch] = useState(false);
+
   useEffect(() => {
     if (!dataBook) {
       setFilteredBook([]);
@@ -117,6 +123,13 @@ export function GlobalProvider({ children }) {
 
         bookLayout, setBookLayout,
         mapPanel, setMapPanel,
+
+        modalBookCreate, setModalBookCreate,
+        modalBookShow, setModalBookShow,
+        modalBookUpdate, setModalBookUpdate,
+        modalBookDelete, setModalBookDelete,
+        modalBookSearch, setModalBookSearch,
+        
       }}
     >
       {children}

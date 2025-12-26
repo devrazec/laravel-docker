@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { GlobalContext } from '@/Context/GlobalContext';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import {
   SidebarItem,
@@ -15,7 +16,10 @@ import { HiOutlinePlusCircle, HiOutlineUpload } from 'react-icons/hi';
 import { Toast } from 'primereact/toast';
 
 const CreateBook = () => {
-  const [isOpen, setOpen] = useState(false);
+
+  const { mode, themeMode, dataBook, totalBook, filteredBook, 
+    modalBookCreate, setModalBookCreate, 
+  } = useContext(GlobalContext);
 
   const { data, setData, post, processing, errors, reset } = useForm({
     title: '',
@@ -29,10 +33,10 @@ const CreateBook = () => {
   const submit = (e) => {
     e.preventDefault();
 
-    post(route('books.store'), {
+    post('/books', {
       onSuccess: () => {
         reset();
-        setOpen(false);
+        setModalBookCreate(false);
 
         toast.current.show({
           severity: 'success',
@@ -60,21 +64,12 @@ const CreateBook = () => {
   };
 
   const toast = useRef(null);
-  const { flash } = usePage().props;
 
   return (
     <>
       <Toast ref={toast} position="bottom-right" />
 
-      <SidebarItem
-        href="#"
-        icon={HiOutlinePlusCircle}
-        onClick={() => setOpen(true)}
-      >
-        Create
-      </SidebarItem>
-
-      <Modal show={isOpen} onClose={() => setOpen(false)} dismissible size="lg">
+      <Modal show={modalBookCreate} onClose={() => setModalBookCreate(false)} dismissible size="lg">
         <div className="rounded-xl border-4 border-blue-500 overflow-hidden">
           <ModalHeader className="dark:bg-gray-700">Create Book</ModalHeader>
 
@@ -83,7 +78,7 @@ const CreateBook = () => {
               {/* Book Info */}
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <Label htmlFor="title">Book Name</Label>
+                  <Label htmlFor="title">Book Title</Label>
                   <TextInput
                     id="title"
                     value={data.title}
@@ -119,7 +114,7 @@ const CreateBook = () => {
                     id="price"
                     value={data.price}
                     onChange={(e) => setData('price', e.target.value)}
-                    placeholder="€ 0.00"
+                    placeholder="0.00"
                   />
                 </div>
 
@@ -160,7 +155,7 @@ const CreateBook = () => {
                 >
                   {!data.filename ? (
                     <>
-                    
+
                       <label className="flex flex-1 cursor-pointer flex-col items-center justify-center rounded-lg p-6 text-center hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700">
                         <HiOutlineUpload className="mb-2 h-8 w-8 text-gray-400" />
                         <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -227,7 +222,7 @@ const CreateBook = () => {
                 <Button color="gray"
                   onClick={() => {
                     resetForm();
-                    setOpen(false);
+                    setModalBookCreate(false);
                   }}>
                   Cancel
                 </Button>

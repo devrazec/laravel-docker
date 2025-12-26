@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { GlobalContext } from '@/Context/GlobalContext';
 import {
     Button,
@@ -11,138 +11,228 @@ import {
     TextInput,
     SidebarItem,
 } from 'flowbite-react';
-import { Link } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { HiTrash, HiPencilAlt, HiOutlineUpload } from 'react-icons/hi';
+import { Toast } from 'primereact/toast';
 
 const UpdateBook = () => {
-    const { selectedBook } = useContext(GlobalContext);
-    const [isOpen, setOpen] = useState(false);
+
+    const { selectedBook,
+        modalBookUpdate, setModalBookUpdate,
+    } = useContext(GlobalContext);
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        title: '',
+        author: '',
+        category: '',
+        price: '',
+        detail: '',
+        filename: null,
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post('/books', {
+            onSuccess: () => {
+                reset();
+                setModalBookUpdate(false);
+
+                toast.current.show({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Book created successfully!',
+                    life: 5000,
+                });
+
+            },
+        });
+    };
+
+    // Function to reset all form fields
+    const resetForm = () => {
+        reset(); // Inertia form reset
+        setData({
+            title: '',
+            author: '',
+            category: '',
+            price: '',
+            detail: '',
+            filename: null,
+        });
+        document.getElementById("file-upload").value = null;
+    };
+
+    const toast = useRef(null);
 
     return (
         <>
-            <SidebarItem icon={HiPencilAlt} onClick={() => setOpen(true)}>
-                Update
-            </SidebarItem>
+            <Toast ref={toast} position="bottom-right" />
 
-            <Modal show={isOpen} onClose={() => setOpen(false)} size="lg" dismissible>
-                <div className="rounded-xl border-4 border-blue-500 dark:border-blue-400 overflow-hidden">
-
-                    <ModalHeader className="dark:bg-gray-700">Update book</ModalHeader>
+            <Modal show={modalBookUpdate} onClose={() => setModalBookUpdate(false)} size="lg" dismissible>
+                <div className="rounded-xl border-4 border-blue-500 overflow-hidden">
+                    <ModalHeader className="dark:bg-gray-700">Update Book</ModalHeader>
 
                     <ModalBody className="dark:bg-gray-800">
-                        <form className="space-y-6">
-                            {/* Book details */}
-                            <div>
-                                <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
-                                    Book information
-                                </h3>
+                        <form className="space-y-6" onSubmit={submit}>
+                            {/* Book Info */}
+                            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                <div>
+                                    <Label htmlFor="title">Book Title</Label>
+                                    <TextInput
+                                        id="title"
+                                        value={data.title}
+                                        onChange={(e) => setData('title', e.target.value)}
+                                        color={errors.title && 'failure'}
+                                    />
+                                    {errors.title && (
+                                        <p className="text-sm text-red-500">{errors.title}</p>
+                                    )}
+                                </div>
 
-                                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                                    <div>
-                                        <Label htmlFor="title" value="Book title" />
-                                        <TextInput
-                                            id="title"
-                                            value={selectedBook.title}
-                                            placeholder="Book title"
-                                        />
-                                    </div>
+                                <div>
+                                    <Label htmlFor="author">Author</Label>
+                                    <TextInput
+                                        id="author"
+                                        value={data.author}
+                                        onChange={(e) => setData('author', e.target.value)}
+                                    />
+                                </div>
 
-                                    <div>
-                                        <Label htmlFor="author" value="Author" />
-                                        <TextInput
-                                            id="author"
-                                            value={selectedBook.author}
-                                            placeholder="Author"
-                                        />
-                                    </div>
+                                <div>
+                                    <Label htmlFor="category">Category</Label>
+                                    <TextInput
+                                        id="category"
+                                        value={data.category}
+                                        onChange={(e) => setData('category', e.target.value)}
+                                    />
+                                </div>
+
+                                <div>
+                                    <Label htmlFor="price">Price</Label>
+                                    <TextInput
+                                        id="price"
+                                        value={data.price}
+                                        onChange={(e) => setData('price', e.target.value)}
+                                        placeholder="0.00"
+                                    />
+                                </div>
+
+                                <div className="sm:col-span-2">
+                                    <Label htmlFor="detail">Book Details</Label>
+                                    <Textarea
+                                        id="detail"
+                                        rows={2}
+                                        value={data.detail}
+                                        onChange={(e) => setData('detail', e.target.value)}
+                                    />
                                 </div>
                             </div>
 
-                            {/* Pricing */}
-                            <div>
-                                <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
-                                    Pricing
-                                </h3>
+                            {/* File Upload */}
+                            {/* File Upload with Drag & Drop */}
+                            {/* File Upload with Drag & Drop + Thumbnail */}
+                            {/* File Upload with Drag & Drop + Thumbnail + Remove Button */}
+                            <div className="mt-4 w-full">
+                                <div
+                                    className={`relative flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors
+                      ${data.filename && data.filename.size > 1000000 ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-800 hover:bg-gray-700'}`}
+                                    onDragOver={(e) => e.preventDefault()}
+                                    onDrop={(e) => {
+                                        e.preventDefault();
+                                        const file = e.dataTransfer.files[0];
+                                        if (!file) return;
 
-                                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                                    <div>
-                                        <Label htmlFor="originalPrice" value="Original price" />
-                                        <TextInput
-                                            id="originalPrice"
-                                            value={selectedBook.originalPrice}
-                                            placeholder="€ 0.00"
-                                        />
-                                    </div>
+                                        if (file.size > 1000000) {
+                                            alert("File size exceeds 1 MB.");
+                                            setData("filename", null);
+                                            return;
+                                        }
 
-                                    <div>
-                                        <Label htmlFor="price" value="New price" />
-                                        <TextInput
-                                            id="price"
-                                            value={selectedBook.price}
-                                            placeholder="€ 0.00"
-                                        />
-                                    </div>
+                                        setData("filename", file);
+                                    }}
+                                    onClick={() => document.getElementById("file-upload").click()}
+                                >
+                                    {!data.filename ? (
+                                        <>
+
+                                            <label className="flex flex-1 cursor-pointer flex-col items-center justify-center rounded-lg p-6 text-center hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700">
+                                                <HiOutlineUpload className="mb-2 h-8 w-8 text-gray-400" />
+                                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                                    Click to upload or drag & drop
+                                                </p>
+                                                <p className="text-xs text-gray-500">
+                                                    PNG, JPG up to 1MB
+                                                </p>
+                                            </label>
+
+                                        </>
+                                    ) : (
+                                        <div className="flex flex-col items-center">
+                                            {data.filename.type.startsWith("image/") && (
+                                                <img
+                                                    src={URL.createObjectURL(data.filename)}
+                                                    alt="preview"
+                                                    className="h-24 w-54 object-cover rounded-md mb-2"
+                                                />
+                                            )}
+                                            <p className="text-sm text-gray-50">{data.filename.name}</p>
+
+                                            {/* Remove Button */}
+                                            <button
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation(); // prevent triggering file dialog
+                                                    setData("filename", null);
+                                                    document.getElementById("file-upload").value = null;
+                                                }}
+                                                className="mt-2 text-sm text-red-500 underline"
+                                            >
+                                                Remove file
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
-                            </div>
 
-                            {/* Description */}
-                            <div>
-                                <Label htmlFor="details" value="Book details" />
-                                <Textarea
-                                    id="details"
-                                    rows={5}
-                                    placeholder="Write a short description..."
+                                <input
+                                    id="file-upload"
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (!file) return;
+
+                                        if (file.size > 1000000) {
+                                            alert("File size exceeds 1 MB.");
+                                            e.target.value = null;
+                                            setData("filename", null);
+                                            return;
+                                        }
+
+                                        setData("filename", file);
+                                    }}
                                 />
+
+                                {errors.filename && (
+                                    <p className="text-sm text-red-500 mt-2">{errors.filename}</p>
+                                )}
                             </div>
 
-                            {/* Image */}
-                            <div>
-                                <h3 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
-                                    Cover image
-                                </h3>
-
-                                <div className="flex items-center gap-6">
-                                    {/* Preview */}
-                                    <div className="relative">
-                                        <img
-                                            src={selectedBook.image}
-                                            alt="Book cover"
-                                            className="h-24 w-16 rounded-md object-cover shadow"
-                                        />
-                                        <button
-                                            type="button"
-                                            className="absolute -top-2 -right-2 rounded-full bg-red-600 p-1 text-white hover:bg-red-700"
-                                        >
-                                            <HiTrash className="h-4 w-4" />
-                                        </button>
-                                    </div>
-
-                                    {/* Upload */}
-                                    <label className="flex flex-1 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-6 text-center hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700">
-                                        <HiOutlineUpload className="mb-2 h-8 w-8 text-gray-400" />
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                                            Click to upload or drag & drop
-                                        </p>
-                                        <p className="text-xs text-gray-500">
-                                            PNG, JPG up to 10MB
-                                        </p>
-                                        <input type="file" className="hidden" />
-                                    </label>
-                                </div>
-                            </div>
+                            <ModalFooter className="flex justify-end gap-3">
+                                <Button color="gray"
+                                    onClick={() => {
+                                        resetForm();
+                                        setModalBookUpdate(false);
+                                    }}>
+                                    Cancel
+                                </Button>
+                                <Button color="blue" type="submit" disabled={processing}>
+                                    {processing ? 'Saving...' : 'Add Book'}
+                                </Button>
+                            </ModalFooter>
                         </form>
                     </ModalBody>
-
-                    <ModalFooter className="flex justify-end gap-3 dark:bg-gray-800">
-                        <Button color="gray" onClick={() => setOpen(false)}>
-                            Cancel
-                        </Button>
-                        <Button color="blue" onClick={() => setOpen(false)}>
-                            Save changes
-                        </Button>
-                    </ModalFooter>
                 </div>
-
             </Modal>
         </>
     );
