@@ -44,14 +44,14 @@ import {
 import { Icon } from '@iconify-icon/react';
 import { Bars, Search } from 'flowbite-react-icons/outline';
 
-import EditBook from './EditBook';
+import EditBook from './UpdateBook';
 import DeleteBook from './DeleteBook';
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Image } from 'primereact/image';
 
-const ReportBook = () => {
+const ShowBook = () => {
 
     const { mode, themeMode, dataBook, totalBook, filteredBook } = useContext(GlobalContext)
 
@@ -62,11 +62,11 @@ const ReportBook = () => {
         <>
 
             <SidebarItem href="#" icon={HiDocumentReport} color="blue" onClick={() => setOpenReport(!isOpenReport)}>
-                Report
+                Show
             </SidebarItem>
             <Modal onClose={() => setOpenReport(false)} show={isOpenReport} size="7xl" dismissible>
                 <ModalHeader className="border-b border-gray-200 dark:border-gray-600">
-                    Report
+                    Show Book
                 </ModalHeader>
                 <ModalBody>
                     
@@ -78,4 +78,4 @@ const ReportBook = () => {
     );
 }
 
-export default React.memo(ReportBook);
+export default React.memo(ShowBook);

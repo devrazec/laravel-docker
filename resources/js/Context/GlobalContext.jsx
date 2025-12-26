@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { useThemeMode } from 'flowbite-react';
+//import { Link, useForm, usePage } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 
 import dataBookJson from '../../../database/data-book.json';
 
@@ -10,7 +12,8 @@ export function GlobalProvider({ children }) {
   const { mode, setMode } = useThemeMode();
   const [themeMode, setThemeMode] = useState(() => mode || 'dark');
 
-  const [dataBook, setDataBook] = useState(dataBookJson.slice(0, 100));
+  //const [dataBook, setDataBook] = useState(dataBookJson.slice(0, 100));
+  const [dataBook, setDataBook] = useState([]);
 
   const [selectedBook, setSelectedBook] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState(null);

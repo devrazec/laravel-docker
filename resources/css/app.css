@@ -28,3 +28,10 @@
   transition: all 0.2s ease-in-out;
 }
 
+.p-toast .p-toast-message.p-toast-message-success {
+    background-color: #1f2937; /* gray-800 */
+    color: #f9fafb; /* white */
+    border-left: 4px solid #3b82f6; /* blue-500 accent */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}

@@ -19,7 +19,6 @@ import {
   TextInput,
   Tooltip,
 } from "flowbite-react";
-//import Link from "next/link";
 import { Link, usePage } from '@inertiajs/react';
 import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '@/Context/GlobalContext';
@@ -51,17 +50,20 @@ import {
   HiOutlineSearch,
 } from "react-icons/hi";
 
-import CreateBook from './Book/CreateBook';
-import UpdateBook from './Book/UpdateBook';
-import SearchBook from './Book/SearchBook';
-import DeleteBook from './Book/DeleteBook';
-//import ShowBook from './Book/ShowBook';
-import IndexBook from './Book/IndexBook';
+import CreateBook from '../../Components/Book/CreateBook';
+import UpdateBook from '../../Components/Book/UpdateBook';
+import SearchBook from '../../Components/Book/SearchBook';
+import DeleteBook from '../../Components/Book/DeleteBook';
+//import ShowBook from '../../Components/Book/ShowBook';
+import IndexBook from '../../Components/Book/IndexBook';
 
-const Home = () => {
+const Index = () => {
+
+  const { books } = usePage().props;
 
   const {
     dataBook,
+    setDataBook,
     bookLayout,
     selectedBook,
     setSelectedBook,
@@ -74,10 +76,15 @@ const Home = () => {
     setSelectedBookName,
   } = useContext(GlobalContext);
 
+
   const { flash } = usePage().props;
 
   const [isMobile, setMobile] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    setDataBook(books);
+  }, [books]);
 
   function hideSidebarOnResize() {
     const isMobileNow = window.innerWidth < 768;
@@ -851,4 +858,4 @@ const Home = () => {
   );
 }
 
-export default React.memo(Home);
+export default React.memo(Index);

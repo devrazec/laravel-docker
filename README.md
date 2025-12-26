@@ -61,6 +61,10 @@ npm i -S primereact
 
 npm i -D flowbite-react-icons @iconify-icon/react iconsax-react react-icons primeicons
 
+-- Inertia
+
+npm i -S @inertiajs/inertia
+
 -- Docker
 
 docker build -t laravel-docker -f Dockerfile .
@@ -71,6 +75,23 @@ docker run -itd \
 --hostname laravel-docker.local \
 -p 80:80 \
 laravel-docker
+
+```
+
+# CRUD
+
+```
+php artisan make:model Book -mcr
+php artisan migrate:rollback
+php artisan migrate
+php artisan migrate:fresh
+
+tail -n 50 storage/logs/laravel.log
+
+php artisan tinker
+use App\Models\Book;
+Book::create(['title' => 'It works']);
+Book::all();
 
 ```
 

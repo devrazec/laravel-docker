@@ -28,7 +28,8 @@ const SearchBook = () => {
     const [isOpen, setOpen] = useState(false);
 
     const imageBodyTemplate = (rowData) => {
-        return <Image src={rowData.image} alt={rowData.title} width="48" className="shadow-2 border-round" />
+        const imageUrl = `/books/image/${rowData.filename}`;
+        return <Image src={imageUrl} alt={rowData.title} width="48" className="shadow-2 border-round" />
     };
 
     return (
@@ -56,10 +57,10 @@ const SearchBook = () => {
                                 tableStyle={{ minWidth: '50rem' }}
                                 className="text-gray-800"
                             >
-                                <Column field="image" header="Image" body={imageBodyTemplate} style={{ width: '12%' }} />
+                                <Column field="filename" header="Image" body={imageBodyTemplate} style={{ width: '12%' }} />
                                 <Column field="title" header="Title" sortable filter style={{ width: '35%' }} />
                                 <Column field="author" header="Author" sortable filter style={{ width: '35%' }} />
-                                <Column field="productId" header="Reference" />
+                                <Column field="category" header="Category" />
                                 <Column field="price" header="Price" sortable />
                             </DataTable>
                         </div>

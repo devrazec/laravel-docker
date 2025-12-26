@@ -5,7 +5,7 @@ import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Tag } from 'primereact/tag';
 import { Image } from 'primereact/image';
 
-const BookDataView = () => {
+const IndexBook = () => {
   const {
     dataBook,
     bookLayout,
@@ -92,7 +92,7 @@ const BookDataView = () => {
         {/* Fixed image */}
         <div className="w-[120px] h-[160px] flex items-center justify-center bg-gray-50 rounded-md shadow-sm">
           <Image
-            src={book.image}
+            src={`/books/image/${book.filename}`}
             alt={book.title}
             className="max-w-full object-contain"
           />
@@ -111,11 +111,11 @@ const BookDataView = () => {
               <span className="flex items-center gap-2 text-sm text-gray-700">
                 <i className="pi pi-tag"></i>
                 <span className="font-semibold">
-                  Original: {book.originalPrice}
+                  {book.category}
                 </span>
               </span>
 
-              <Tag value={book.discount} severity={getSeverity(book)} />
+              <Tag value="-10%" severity="success" />
             </div>
 
             {/* Author */}
@@ -161,16 +161,16 @@ const BookDataView = () => {
           <div className="flex items-center justify-between gap-2 mb-3">
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <i className="pi pi-tag"></i>
-              <span>Original: {book.originalPrice}</span>
+              <span>{book.category}</span>
             </div>
 
-            <Tag value={book.discount} severity={getSeverity(book)} />
+            <Tag value="-10%" severity="success" />
           </div>
 
           {/* Image */}
           <div className="flex justify-center items-center mb-4">
             <Image
-              src={book.image}
+              src={`/books/image/${book.filename}`}
               alt={book.title}
               className="
       w-[120px] h-[160px]
@@ -261,4 +261,4 @@ const BookDataView = () => {
   );
 };
 
-export default BookDataView;
+export default IndexBook;

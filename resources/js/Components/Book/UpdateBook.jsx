@@ -14,20 +14,20 @@ import {
 import { Link } from '@inertiajs/react';
 import { HiTrash, HiPencilAlt, HiOutlineUpload } from 'react-icons/hi';
 
-const EditBook = () => {
+const UpdateBook = () => {
     const { selectedBook } = useContext(GlobalContext);
     const [isOpen, setOpen] = useState(false);
 
     return (
         <>
             <SidebarItem icon={HiPencilAlt} onClick={() => setOpen(true)}>
-                Edit
+                Update
             </SidebarItem>
 
             <Modal show={isOpen} onClose={() => setOpen(false)} size="lg" dismissible>
                 <div className="rounded-xl border-4 border-blue-500 dark:border-blue-400 overflow-hidden">
 
-                    <ModalHeader className="dark:bg-gray-700">Edit book</ModalHeader>
+                    <ModalHeader className="dark:bg-gray-700">Update book</ModalHeader>
 
                     <ModalBody className="dark:bg-gray-800">
                         <form className="space-y-6">
@@ -148,4 +148,4 @@ const EditBook = () => {
     );
 };
 
-export default React.memo(EditBook);
+export default React.memo(UpdateBook);
