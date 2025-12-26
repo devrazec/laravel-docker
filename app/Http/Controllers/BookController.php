@@ -14,7 +14,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = DB::table('books')->limit(100)->get();
+        $books = DB::table('books')
+        ->orderBy('id', 'desc') // 'asc' for ascending, 'desc' for descending
+        ->limit(100)
+        ->get();
         //$books = Book::all(); // Fetch all books
 
         return Inertia::render('Books/Index', [

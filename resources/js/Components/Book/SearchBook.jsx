@@ -60,7 +60,7 @@ const SearchBook = () => {
                                 <Column field="filename" header="Image" body={imageBodyTemplate} style={{ width: '12%' }} />
                                 <Column field="title" header="Title" sortable filter style={{ width: '35%' }} />
                                 <Column field="author" header="Author" sortable filter style={{ width: '35%' }} />
-                                <Column field="category" header="Category" />
+                                <Column field="category" header="Category" sortable filter style={{ width: '25%' }} />
                                 <Column field="price" header="Price" sortable />
                             </DataTable>
                         </div>
