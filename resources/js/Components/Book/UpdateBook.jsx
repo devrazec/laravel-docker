@@ -119,7 +119,9 @@ const UpdateBook = () => {
                                         onChange={(e) => setData('title', e.target.value)}
                                         color={errors.title && 'failure'}
                                     />
-                                    {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
+                                    {errors.title && (
+                                        <p className="text-sm text-red-500">{errors.title}</p>
+                                    )}
                                 </div>
 
                                 <div>

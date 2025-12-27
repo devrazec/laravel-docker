@@ -45,7 +45,7 @@ class BookController extends Controller
             'category' => 'nullable|string|max:255',
             'price' => 'nullable|string|max:50',
             'detail' => 'nullable|string',
-            'filename' => 'nullable|file|max:10240',
+            'filename' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:10240',
         ]);
 
         $filename = null;
@@ -103,19 +103,16 @@ class BookController extends Controller
             'remove_image' => 'nullable|boolean',
         ]);
 
-        // Update text fields
-        $data = collect($validated)->except(['filename', 'remove_image'])->toArray();
-
         /**
-         * Remove existing image
+         * Handle image removal
          */
         if ($request->boolean('remove_image') && $book->filename) {
             \Storage::delete('books/' . $book->filename);
-            $data['filename'] = null;
+            $book->filename = null;
         }
 
         /**
-         * Upload new image
+         * Handle image upload
          */
         if ($request->hasFile('filename')) {
 
@@ -125,13 +122,23 @@ class BookController extends Controller
             }
 
             $path = $request->file('filename')->store('books');
-            $data['filename'] = basename($path);
+            $book->filename = basename($path);
         }
 
-        $book->update($data);
+        /**
+         * Update fields one by one (same style as create)
+         */
+        $book->title    = $validated['title'];
+        $book->author   = $validated['author'] ?? null;
+        $book->category = $validated['category'] ?? null;
+        $book->price    = $validated['price'] ?? null;
+        $book->detail   = $validated['detail'] ?? null;
 
-        //return back()->with('success', 'Book updated successfully.');
-        return redirect()->route('books.index', $book)->with('success', 'Updated');
+        $book->save();
+
+        return redirect()
+            ->route('books.index')
+            ->with('success', 'Book updated successfully.');
     }
 
     /**

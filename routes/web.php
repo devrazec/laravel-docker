@@ -37,10 +37,15 @@ Route::middleware('auth')->group(function () {
 
 // test: http://127.0.0.1:8080/books/image/8cdyBqYBbn7h2HbL7RaJxoMcdgC9yD57jcr9EqpF.jpg
 Route::get('/books/image/{filename?}', function ($filename = null) {
-    $path = storage_path('app/private/books/' . $filename);
-
+    
      // Default image (public folder)
     $defaultPath = public_path('image/book1.jpg');
+
+    if (empty($filename) || $filename === 'null') {
+        return response()->file($defaultPath);
+    }
+
+    $path = storage_path('app/private/books/' . $filename);
 
     if (!file_exists($path)) {
         //abort(404);
