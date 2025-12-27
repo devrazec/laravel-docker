@@ -57,7 +57,7 @@ import CreateBook from '../../Components/Book/CreateBook';
 import UpdateBook from '../../Components/Book/UpdateBook';
 import SearchBook from '../../Components/Book/SearchBook';
 import DeleteBook from '../../Components/Book/DeleteBook';
-//import ShowBook from '../../Components/Book/ShowBook';
+import ShowBook from '../../Components/Book/ShowBook';
 import IndexBook from '../../Components/Book/IndexBook';
 
 const Index = () => {
@@ -83,9 +83,6 @@ const Index = () => {
     modalBookDelete, setModalBookDelete,
     modalBookSearch, setModalBookSearch,
   } = useContext(GlobalContext);
-
-
-  const { flash } = usePage().props;
 
   const [isMobile, setMobile] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -635,6 +632,13 @@ const Index = () => {
                         onClick={() => setModalBookCreate(true)}
                       >
                         Create
+                      </SidebarItem>
+
+                      <SidebarItem
+                        href="#"
+                        icon={HiEye}
+                        onClick={() => setModalBookShow(true)}>
+                        Show
                       </SidebarItem>
 
                       <SidebarItem

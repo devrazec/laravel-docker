@@ -35,13 +35,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 // test: http://127.0.0.1:8080/books/image/8cdyBqYBbn7h2HbL7RaJxoMcdgC9yD57jcr9EqpF.jpg
-Route::get('/books/image/{filename}', function ($filename) {
+Route::get('/books/image/{filename?}', function ($filename = null) {
     $path = storage_path('app/private/books/' . $filename);
 
+     // Default image (public folder)
+    $defaultPath = public_path('image/book1.jpg');
+
     if (!file_exists($path)) {
-        abort(404);
+        //abort(404);
+        return response()->file($defaultPath);
     }
 
     $file = file_get_contents($path);

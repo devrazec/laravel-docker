@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useMemo } from 'react';
 import { GlobalContext } from '@/Context/GlobalContext';
-
+import { Link, useForm, usePage } from '@inertiajs/react';
 import {
     theme,
     Breadcrumb,
@@ -23,7 +23,6 @@ import {
     SidebarItem,
 } from "flowbite-react";
 import { twMerge } from 'tailwind-merge';
-import { Link } from '@inertiajs/react';
 import { FaPlus } from "react-icons/fa";
 import {
     HiChevronLeft,
@@ -45,7 +44,34 @@ import { Bars, Search } from 'flowbite-react-icons/outline';
 
 const DeleteBook = () => {
 
-    const { mode, themeMode, dataBook, totalBook, filteredBook, modalBookDelete, setModalBookDelete, } = useContext(GlobalContext)
+    const {
+        mode, themeMode, dataBook,
+        totalBook, filteredBook,
+        selectedBook,
+        setSelectedBook,
+        modalBookCreate, setModalBookCreate,
+        modalBookShow, setModalBookShow,
+        modalBookUpdate, setModalBookUpdate,
+        modalBookDelete, setModalBookDelete,
+        modalBookSearch, setModalBookSearch,
+
+    } = useContext(GlobalContext)
+
+    const { delete: destroy, processing } = useForm();
+    
+    if (!selectedBook) return null;
+
+    const handleDelete = () => {
+        destroy(route('books.destroy', selectedBook.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                setModalBookDelete(false);
+                setModalBookUpdate(false);
+                setModalBookShow(false);
+                setSelectedBook(null);
+            },
+        });
+    };
 
     return (
         <Modal onClose={() => setModalBookDelete(false)} show={modalBookDelete} size="md" dismissible>
@@ -63,14 +89,16 @@ const DeleteBook = () => {
                             <Button
                                 color="red"
                                 theme={{ base: "px-0" }}
-                                onClick={() => setModalBookDelete(false)}
+                                onClick={handleDelete}
+                                disabled={processing}
                             >
-                                <span className="text-base font-medium dark:text-gray-50">Yes, I'm sure</span>
+                                <span className="text-base font-medium dark:text-gray-50">{processing ? "Deleting..." : "Yes, I'm sure"}</span>
                             </Button>
                             <Button
                                 color="alternative"
                                 theme={{ base: "px-0" }}
                                 onClick={() => setModalBookDelete(false)}
+                                disabled={processing}
                             >
                                 <span className="text-base font-medium dark:text-gray-50">No, cancel</span>
                             </Button>

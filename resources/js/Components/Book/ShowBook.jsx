@@ -1,77 +1,150 @@
-import React, { useContext, useState, useEffect, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { GlobalContext } from '@/Context/GlobalContext';
-
 import {
-    theme,
-    Breadcrumb,
-    BreadcrumbItem,
     Button,
-    Checkbox,
-    Label,
     Modal,
     ModalBody,
     ModalFooter,
     ModalHeader,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeadCell,
-    TableRow,
+    Label,
     Textarea,
     TextInput,
-    SidebarItem,
-} from "flowbite-react";
-import { twMerge } from 'tailwind-merge';
-import { Link } from '@inertiajs/react';
-import { FaPlus } from "react-icons/fa";
-import {
-    HiChevronLeft,
-    HiChevronRight,
-    HiCog,
-    HiDotsVertical,
-    HiExclamationCircle,
-    HiHome,
-    HiOutlineExclamationCircle,
-    HiOutlineUpload,
-    HiTrash,
-    HiClipboard,
-    HiOutlinePlusCircle,
-    HiPencilAlt,
-    HiOutlineTrash,
-    HiDocumentReport,
-} from "react-icons/hi";
-import { Icon } from '@iconify-icon/react';
-import { Bars, Search } from 'flowbite-react-icons/outline';
+} from 'flowbite-react';
 
-import EditBook from './UpdateBook';
-import DeleteBook from './DeleteBook';
-
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Image } from 'primereact/image';
+import { HiPencilAlt, HiTrash, HiXCircle } from 'react-icons/hi';
 
 const ShowBook = () => {
+    const {
+        selectedBook,
+        modalBookCreate, setModalBookCreate,
+        modalBookShow, setModalBookShow,
+        modalBookUpdate, setModalBookUpdate,
+        modalBookDelete, setModalBookDelete,
+        modalBookSearch, setModalBookSearch,
+    } = useContext(GlobalContext);
 
-    const { mode, themeMode, dataBook, totalBook, filteredBook } = useContext(GlobalContext)
-
-    const [isOpenReport, setOpenReport] = useState(false);
-    const [isOpenLink, setIsOpenLink] = useState(false);
+    if (!selectedBook) return null;
 
     return (
-        <>
-            <Modal onClose={() => setOpenReport(false)} show={isOpenReport} size="7xl" dismissible>
-                <ModalHeader className="border-b border-gray-200 dark:border-gray-600">
+        <Modal
+            show={modalBookShow}
+            onClose={() => setModalBookShow(false)}
+            size="lg"
+            dismissible
+        >
+            <div className="rounded-xl border-4 border-blue-500 overflow-hidden">
+                <ModalHeader className="dark:bg-gray-700">
                     Show Book
                 </ModalHeader>
-                <ModalBody>
 
+                <ModalBody className="dark:bg-gray-800 space-y-6">
 
+                    {/* Image */}
+                    <div className="flex justify-center">
+                        <img
+                            src={
+                                selectedBook.filename
+                                    ? `/books/image/${selectedBook.filename}`
+                                    : '/image/book1.jpg'
+                            }
+                            alt={selectedBook.title}
+                            className="h-40 w-40 rounded-md object-contain bg-gray-50 shadow-sm"
+                            onError={(e) => {
+                                e.target.src = '/image/book1.jpg';
+                            }}
+                        />
+                    </div>
+
+                    {/* Fields */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                        <div>
+                            <Label>Book Title</Label>
+                            <TextInput
+                                value={selectedBook.title}
+                                readOnly
+                                disabled
+                            />
+                        </div>
+
+                        <div>
+                            <Label>Author</Label>
+                            <TextInput
+                                value={selectedBook.author}
+                                readOnly
+                                disabled
+                            />
+                        </div>
+
+                        <div>
+                            <Label>Category</Label>
+                            <TextInput
+                                value={selectedBook.category}
+                                readOnly
+                                disabled
+                            />
+                        </div>
+
+                        <div>
+                            <Label>Price</Label>
+                            <TextInput
+                                value={`€ ${selectedBook.price === null ? '0.00' : selectedBook.price}`}
+                                readOnly
+                                disabled
+                            />
+                        </div>
+
+                        <div className="sm:col-span-2">
+                            <Label>Details</Label>
+                            <Textarea
+                                rows={3}
+                                value={selectedBook.detail || ''}
+                                readOnly
+                                disabled
+                            />
+                        </div>
+
+                    </div>
                 </ModalBody>
-            </Modal>
 
-        </>
+                <ModalFooter className="flex justify-between gap-3 dark:bg-gray-800">
+
+                    {/* Left side */}
+                    <Button
+                        color="red"
+                        onClick={() => {
+                            setModalBookDelete(true);
+                        }}
+                    >
+                        <HiTrash className="mr-2 h-4 w-4" />
+                        Delete
+                    </Button>
+
+                    {/* Right side */}
+                    <div className="flex gap-2">
+                        <Button
+                            color="blue"
+                            onClick={() => {
+                                setModalBookShow(false);
+                                setModalBookUpdate(true);
+                            }}
+                        >
+                            <HiPencilAlt className="mr-2 h-4 w-4" />
+                            Edit
+                        </Button>
+                        <Button
+                            color="gray"
+                            onClick={() => setModalBookShow(false)}
+                        >
+                            <HiXCircle className="mr-2 h-4 w-4" />
+                            Close
+                        </Button>
+                    </div>
+
+                </ModalFooter>
+            </div>
+        </Modal>
     );
-}
+};
 
 export default React.memo(ShowBook);

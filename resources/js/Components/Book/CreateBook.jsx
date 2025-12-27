@@ -12,13 +12,17 @@ import {
   Textarea,
   Button,
 } from 'flowbite-react';
-import { HiOutlinePlusCircle, HiOutlineUpload } from 'react-icons/hi';
+import { HiOutlinePlusCircle, HiTrash, HiOutlineUpload, HiXCircle, HiCheckCircle } from 'react-icons/hi';
 import { Toast } from 'primereact/toast';
 
 const CreateBook = () => {
 
-  const { mode, themeMode, dataBook, totalBook, filteredBook,
+  const { mode, themeMode, dataBook, setDataBook, totalBook, filteredBook,
     modalBookCreate, setModalBookCreate,
+    modalBookShow, setModalBookShow,
+    modalBookUpdate, setModalBookUpdate,
+    modalBookDelete, setModalBookDelete,
+    modalBookSearch, setModalBookSearch,
   } = useContext(GlobalContext);
 
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -71,11 +75,11 @@ const CreateBook = () => {
       <Modal show={modalBookCreate} onClose={() => setModalBookCreate(false)} dismissible size="lg">
         <div className="rounded-xl border-4 border-blue-500 overflow-hidden">
           <ModalHeader className="dark:bg-gray-700">Create Book</ModalHeader>
+          
+          <form onSubmit={submit}>
 
-          <ModalBody className="dark:bg-gray-800">
-            <form className="space-y-6" onSubmit={submit}>
-              {/* Book Info */}
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <ModalBody className="dark:bg-gray-800 space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="title">Book Title</Label>
                   <TextInput
@@ -118,7 +122,7 @@ const CreateBook = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <Label htmlFor="detail">Book Details</Label>
+                  <Label htmlFor="detail">Details</Label>
                   <Textarea
                     id="detail"
                     rows={2}
@@ -132,7 +136,7 @@ const CreateBook = () => {
               {/* File Upload with Drag & Drop */}
               {/* File Upload with Drag & Drop + Thumbnail */}
               {/* File Upload with Drag & Drop + Thumbnail + Remove Button */}
-              <div className="mt-4 w-full">
+              <div className="flex justify-center">
                 <div
                   className={`relative flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors
       ${data.filename && data.filename.size > 1000000 ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-800 hover:bg-gray-700'}`}
@@ -216,21 +220,27 @@ const CreateBook = () => {
                   <p className="text-sm text-red-500 mt-2">{errors.filename}</p>
                 )}
               </div>
+            </ModalBody>
+            <ModalFooter className="flex justify-end gap-3 dark:bg-gray-800">
 
-              <ModalFooter className="flex justify-end gap-3">
+              {/* Left side */}
+
+              <div className="flex gap-2">
+                <Button color="blue" type="submit" disabled={processing}>
+                  <HiCheckCircle className="mr-2 h-4 w-4" />
+                  {processing ? 'Saving...' : 'Save'}
+                </Button>
                 <Button color="gray"
                   onClick={() => {
                     resetForm();
                     setModalBookCreate(false);
                   }}>
-                  Cancel
+                  <HiXCircle className="mr-2 h-4 w-4" />
+                  Close
                 </Button>
-                <Button color="blue" type="submit" disabled={processing}>
-                  {processing ? 'Saving...' : 'Add Book'}
-                </Button>
-              </ModalFooter>
-            </form>
-          </ModalBody>
+              </div>
+            </ModalFooter>
+          </form>
         </div>
       </Modal>
     </>

@@ -64,7 +64,8 @@ class BookController extends Controller
         ]);
 
         //return response()->json(['message' => 'Book created successfully.']);
-        return back()->with('success', 'Book updated successfully.');
+        //return back()->with('success', 'Book updated successfully.');
+        return redirect()->route('books.index', $book)->with('success', 'Updated');
     }
 
     /**
@@ -129,7 +130,8 @@ class BookController extends Controller
 
         $book->update($data);
 
-        return back()->with('success', 'Book updated successfully.');
+        //return back()->with('success', 'Book updated successfully.');
+        return redirect()->route('books.index', $book)->with('success', 'Updated');
     }
 
     /**
@@ -139,6 +141,7 @@ class BookController extends Controller
     {
         $book->delete();
 
-        return back()->with('success', 'Book deleted successfully.');
+        //return back()->with('success', 'Book deleted successfully.');
+        return redirect()->route('books.index', $book)->with('success', 'Updated');
     }
 }

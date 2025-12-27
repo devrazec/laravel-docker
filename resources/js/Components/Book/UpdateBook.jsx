@@ -11,15 +11,20 @@ import {
     TextInput,
 } from 'flowbite-react';
 import { useForm } from '@inertiajs/react';
-import { HiOutlineUpload } from 'react-icons/hi';
+import { HiOutlineUpload, HiPencilAlt, HiCheckCircle, HiTrash, HiXCircle } from 'react-icons/hi';
 import { Toast } from 'primereact/toast';
 
 const UpdateBook = () => {
     const {
         selectedBook,
-        modalBookUpdate,
-        setModalBookUpdate,
+        modalBookCreate, setModalBookCreate,
+        modalBookShow, setModalBookShow,
+        modalBookUpdate, setModalBookUpdate,
+        modalBookDelete, setModalBookDelete,
+        modalBookSearch, setModalBookSearch,
     } = useContext(GlobalContext);
+
+    if (!selectedBook) return null;
 
     const toast = useRef(null);
 
@@ -51,7 +56,7 @@ const UpdateBook = () => {
     const submit = (e) => {
         e.preventDefault();
 
-       put(route('books.update', selectedBook.id), {
+        put(route('books.update', selectedBook.id), {
             onSuccess: () => {
                 reset();
                 setModalBookUpdate(false);
@@ -66,19 +71,19 @@ const UpdateBook = () => {
         });
     };
 
-     // Function to reset all form fields
-  const resetForm = () => {
-    reset(); // Inertia form reset
-    setData({
-      title: '',
-      author: '',
-      category: '',
-      price: '',
-      detail: '',
-      filename: null,
-    });
-    document.getElementById("file-upload").value = null;
-  };
+    // Function to reset all form fields
+    const resetForm = () => {
+        reset(); // Inertia form reset
+        setData({
+            title: '',
+            author: '',
+            category: '',
+            price: '',
+            detail: '',
+            filename: null,
+        });
+        document.getElementById("file-upload").value = null;
+    };
 
     const hasNewImage = data.filename instanceof File;
 
@@ -95,14 +100,17 @@ const UpdateBook = () => {
             <Toast ref={toast} position="bottom-right" />
 
             <Modal show={modalBookUpdate} onClose={() => setModalBookUpdate(false)} size="lg" dismissible>
+
                 <div className="rounded-xl border-4 border-blue-500 overflow-hidden">
+
                     <ModalHeader className="dark:bg-gray-700">
                         Update Book
                     </ModalHeader>
 
-                    <ModalBody className="dark:bg-gray-800">
-                        <form className="space-y-6" onSubmit={submit}>
-                            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <form onSubmit={submit}>
+
+                        <ModalBody className="dark:bg-gray-800 space-y-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div>
                                     <Label htmlFor="title">Book Title</Label>
                                     <TextInput
@@ -143,7 +151,7 @@ const UpdateBook = () => {
                                 </div>
 
                                 <div className="sm:col-span-2">
-                                    <Label htmlFor="detail">Book Details</Label>
+                                    <Label htmlFor="detail">Details</Label>
                                     <Textarea
                                         id="detail"
                                         rows={2}
@@ -229,8 +237,22 @@ const UpdateBook = () => {
                                     setData('remove_image', true);
                                 }}
                             />
-
-                            <ModalFooter className="flex justify-end gap-3">
+                        </ModalBody>
+                        <ModalFooter className="flex justify-between gap-3 dark:bg-gray-800">
+                            <Button
+                                color="red"
+                                onClick={() => {
+                                    setModalBookDelete(true);
+                                }}
+                            >
+                                <HiTrash className="mr-2 h-4 w-4" />
+                                Delete
+                            </Button>
+                            <div className="flex gap-2">
+                                <Button color="blue" type="submit" disabled={processing}>
+                                    <HiCheckCircle className="mr-2 h-4 w-4" />
+                                    {processing ? 'Saving...' : 'Save'}
+                                </Button>
                                 <Button
                                     color="gray"
                                     onClick={() => {
@@ -238,15 +260,12 @@ const UpdateBook = () => {
                                         setModalBookUpdate(false);
                                     }}
                                 >
-                                    Cancel
+                                    <HiXCircle className="mr-2 h-4 w-4" />
+                                    Close
                                 </Button>
-
-                                <Button color="blue" type="submit" disabled={processing}>
-                                    {processing ? 'Saving...' : 'Update Book'}
-                                </Button>
-                            </ModalFooter>
-                        </form>
-                    </ModalBody>
+                            </div>
+                        </ModalFooter>
+                    </form>
                 </div>
             </Modal>
         </>

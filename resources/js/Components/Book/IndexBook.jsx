@@ -38,7 +38,7 @@ import CreateBook from './CreateBook';
 import UpdateBook from './UpdateBook';
 import DeleteBook from './DeleteBook';
 import SearchBook from './SearchBook';
-
+import ShowBook from './ShowBook';
 
 const IndexBook = () => {
   const {
@@ -63,6 +63,8 @@ const IndexBook = () => {
   const [totalRecords, setTotalRecords] = useState(filteredBook.length);
 
   const [data, setData] = useState(filteredBook.slice(0, numberRecords));
+
+  const fallbackImage = "/image/book1.jpg";
 
   useEffect(() => {
     setFirstRecord(0); // reset to first page
@@ -117,6 +119,7 @@ const IndexBook = () => {
   };
 
   const listItem = book => {
+
     return (
       <div
         key={book.id}
@@ -130,12 +133,15 @@ const IndexBook = () => {
         onClick={() => setSelectedBook(book)}
       >
         {/* Fixed image */}
-        <div className="w-[140px] h-[160px] flex items-center justify-center bg-gray-50 rounded-md shadow-sm">
+        <div className="w-[130px] h-[160px] flex items-center justify-center bg-gray-50 rounded-md shadow-sm">
           <Image
             src={`/books/image/${book.filename}`}
             alt={book.title}
             className="max-w-full object-contain"
             preview
+            onError={(e) => {
+              e.target.src = "/image/book1.jpg";
+            }}
           />
         </div>
 
@@ -189,6 +195,7 @@ const IndexBook = () => {
   };
 
   const gridItem = book => {
+
     return (
       <div className={`${gridClass} p-2`} key={book.id}>
         <div
@@ -221,14 +228,16 @@ const IndexBook = () => {
               src={`/books/image/${book.filename}`}
               alt={book.title}
               className="
-                w-[140px] h-[160px]
+                w-[130px] h-[160px]
                 object-contain
                 rounded-md
                 shadow-sm
                 bg-gray-50
               "
               preview
-
+              onError={(e) => {
+                e.target.src = "/image/book1.jpg";
+              }}
             />
           </div>
 
@@ -301,6 +310,7 @@ const IndexBook = () => {
       <UpdateBook />
       <DeleteBook />
       <SearchBook />
+      <ShowBook />
       <div className="card" style={{ height: '100%', overflowY: 'auto' }}>
         <div className="rounded-xl border-4 border-blue-500 dark:border-blue-500 overflow-hidden">
           <DataView
