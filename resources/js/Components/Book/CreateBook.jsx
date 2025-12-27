@@ -232,7 +232,6 @@ const CreateBook = () => {
                 </Button>
                 <Button color="gray"
                   onClick={() => {
-                    resetForm();
                     setModalBookCreate(false);
                   }}>
                   <HiXCircle className="mr-2 h-4 w-4" />

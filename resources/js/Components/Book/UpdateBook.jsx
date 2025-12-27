@@ -258,7 +258,6 @@ const UpdateBook = () => {
                                 <Button
                                     color="gray"
                                     onClick={() => {
-                                        resetForm();
                                         setModalBookUpdate(false);
                                     }}
                                 >

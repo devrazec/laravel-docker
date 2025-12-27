@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useMemo } from 'react';
+import React, { useContext, useState, useEffect, useMemo, useRef } from 'react';
 import { GlobalContext } from '@/Context/GlobalContext';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import {
@@ -54,17 +54,26 @@ const DeleteBook = () => {
         modalBookUpdate, setModalBookUpdate,
         modalBookDelete, setModalBookDelete,
         modalBookSearch, setModalBookSearch,
+        toastMessage,
 
     } = useContext(GlobalContext)
 
     const { delete: destroy, processing } = useForm();
-    
-    if (!selectedBook) return null;
+
+    if (!modalBookDelete) return null;
 
     const handleDelete = () => {
         destroy(route('books.destroy', selectedBook.id), {
             preserveScroll: true,
             onSuccess: () => {
+
+                toastMessage.current?.show({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Book deleted successfully!',
+                    life: 5000,
+                });
+
                 setModalBookDelete(false);
                 setModalBookUpdate(false);
                 setModalBookShow(false);

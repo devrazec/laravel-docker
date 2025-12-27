@@ -1,7 +1,8 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useRef, useEffect } from 'react';
 import { useThemeMode } from 'flowbite-react';
 //import { Link, useForm, usePage } from '@inertiajs/react';
 import { Inertia } from '@inertiajs/inertia';
+import { Toast } from 'primereact/toast';
 
 import dataBookJson from '../../../database/data-book.json';
 
@@ -38,6 +39,8 @@ export function GlobalProvider({ children }) {
   const [modalBookUpdate, setModalBookUpdate] = useState(false);
   const [modalBookDelete, setModalBookDelete] = useState(false);
   const [modalBookSearch, setModalBookSearch] = useState(false);
+
+  const toastMessage = useRef(null);
 
   useEffect(() => {
     if (!dataBook) {
@@ -129,9 +132,12 @@ export function GlobalProvider({ children }) {
         modalBookUpdate, setModalBookUpdate,
         modalBookDelete, setModalBookDelete,
         modalBookSearch, setModalBookSearch,
-        
+
+        toastMessage,
+
       }}
     >
+      <Toast ref={toastMessage} position="bottom-right" />
       {children}
     </GlobalContext.Provider>
   );
