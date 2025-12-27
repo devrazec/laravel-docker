@@ -17,8 +17,8 @@ import { Toast } from 'primereact/toast';
 
 const CreateBook = () => {
 
-  const { mode, themeMode, dataBook, totalBook, filteredBook, 
-    modalBookCreate, setModalBookCreate, 
+  const { mode, themeMode, dataBook, totalBook, filteredBook,
+    modalBookCreate, setModalBookCreate,
   } = useContext(GlobalContext);
 
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -29,6 +29,8 @@ const CreateBook = () => {
     detail: '',
     filename: null,
   });
+
+  const toast = useRef(null);
 
   const submit = (e) => {
     e.preventDefault();
@@ -44,7 +46,6 @@ const CreateBook = () => {
           detail: 'Book created successfully!',
           life: 5000,
         });
-
       },
     });
   };
@@ -62,8 +63,6 @@ const CreateBook = () => {
     });
     document.getElementById("file-upload").value = null;
   };
-
-  const toast = useRef(null);
 
   return (
     <>

@@ -51,8 +51,7 @@ const UpdateBook = () => {
     const submit = (e) => {
         e.preventDefault();
 
-        put(route('books.update', selectedBook.id), {
-            forceFormData: true,
+       put(route('books.update', selectedBook.id), {
             onSuccess: () => {
                 reset();
                 setModalBookUpdate(false);
@@ -67,10 +66,19 @@ const UpdateBook = () => {
         });
     };
 
-    const resetForm = () => {
-        reset();
-        document.getElementById('file-upload').value = null;
-    };
+     // Function to reset all form fields
+  const resetForm = () => {
+    reset(); // Inertia form reset
+    setData({
+      title: '',
+      author: '',
+      category: '',
+      price: '',
+      detail: '',
+      filename: null,
+    });
+    document.getElementById("file-upload").value = null;
+  };
 
     const hasNewImage = data.filename instanceof File;
 
@@ -129,6 +137,7 @@ const UpdateBook = () => {
                                     <TextInput
                                         id="price"
                                         value={data.price}
+                                        placeholder='0.00'
                                         onChange={(e) => setData('price', e.target.value)}
                                     />
                                 </div>

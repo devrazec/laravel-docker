@@ -130,7 +130,7 @@ const IndexBook = () => {
         onClick={() => setSelectedBook(book)}
       >
         {/* Fixed image */}
-        <div className="w-[120px] h-[160px] flex items-center justify-center bg-gray-50 rounded-md shadow-sm">
+        <div className="w-[140px] h-[160px] flex items-center justify-center bg-gray-50 rounded-md shadow-sm">
           <Image
             src={`/books/image/${book.filename}`}
             alt={book.title}
@@ -171,10 +171,17 @@ const IndexBook = () => {
               € {book.price}
             </span>
 
-            <Button
-              icon="pi pi-shopping-cart"
-              className="p-button-rounded"
-            />
+            <div className="flex flex-wrap gap-2 mt-24">
+              <Button pill color="green" className="rounded-full px-2" size="xs" onClick={() => setModalBookUpdate(true)}>
+                <HiEye className="h-4 w-4" />
+              </Button>
+              <Button pill color="blue" className="rounded-full px-2" size="xs" onClick={() => setModalBookUpdate(true)}>
+                <HiPencilAlt className="h-4 w-4" />
+              </Button>
+              <Button pill color="red" className="rounded-full px-2" size="xs" onClick={() => setModalBookDelete(true)}>
+                <HiTrash className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -214,12 +221,12 @@ const IndexBook = () => {
               src={`/books/image/${book.filename}`}
               alt={book.title}
               className="
-      w-[120px] h-[160px]
-      object-contain
-      rounded-md
-      shadow-sm
-      bg-gray-50
-    "
+                w-[140px] h-[160px]
+                object-contain
+                rounded-md
+                shadow-sm
+                bg-gray-50
+              "
               preview
 
             />
@@ -239,16 +246,19 @@ const IndexBook = () => {
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-            <span className="text-base font-semibold text-gray-900">
+          <div className="flex flex-col items-center justify-between mt-4 pt-3 border-t border-gray-100">
+            <span className="text-base font-semibold text-gray-900 mb-4">
               € {book.price}
             </span>
 
             <div className="flex flex-wrap gap-2">
-              <Button pill color="blue" className="rounded-full px-2.5" size="xs" onClick={() => setModalBookUpdate(true)}>
+              <Button pill color="green" className="rounded-full px-2" size="xs" onClick={() => setModalBookShow(true)}>
+                <HiEye className="h-4 w-4" />
+              </Button>
+              <Button pill color="blue" className="rounded-full px-2" size="xs" onClick={() => setModalBookUpdate(true)}>
                 <HiPencilAlt className="h-4 w-4" />
               </Button>
-              <Button pill color="red" className="rounded-full px-2.5" size="xs" onClick={() => setModalBookDelete(true)}>
+              <Button pill color="red" className="rounded-full px-2" size="xs" onClick={() => setModalBookDelete(true)}>
                 <HiTrash className="h-4 w-4" />
               </Button>
             </div>
