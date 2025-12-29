@@ -1,0 +1,105 @@
+/* TABLE ROOT */
+.flowbite-datatable .p-datatable-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    font-size: 0.875rem; /* text-sm */
+}
+
+/* HEADER */
+.flowbite-datatable .p-datatable-thead > tr > th {
+    background-color: #f9fafb; /* gray-50 */
+    color: #6b7280; /* gray-500 */
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* DARK MODE */
+.dark .flowbite-datatable .p-datatable-thead > tr > th {
+    background-color: #374151;
+    color: #d1d5db;
+    border-bottom-color: #4b5563;
+}
+
+/* BODY CELLS */
+.flowbite-datatable .p-datatable-tbody > tr > td {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: #111827;
+}
+
+.dark .flowbite-datatable .p-datatable-tbody > tr > td {
+    border-bottom-color: #4b5563;
+    color: #f9fafb;
+}
+
+/* STRIPED ROWS */
+.flowbite-datatable .p-datatable-tbody > tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.dark .flowbite-datatable .p-datatable-tbody > tr:nth-child(even) {
+    background-color: #1f2937;
+}
+
+/* HOVER */
+.flowbite-datatable .p-datatable-tbody > tr:hover {
+    background-color: #f3f4f6;
+}
+
+.dark .flowbite-datatable .p-datatable-tbody > tr:hover {
+    background-color: #374151;
+}
+
+/* FILTER INPUTS */
+.flowbite-datatable .p-column-filter input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db;
+}
+
+.dark .flowbite-datatable .p-column-filter input {
+    background-color: #1f2937;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+/* PAGINATOR */
+.flowbite-datatable .p-paginator {
+    border-top: 1px solid #e5e7eb;
+    padding: 0.75rem;
+}
+
+.dark .flowbite-datatable .p-paginator {
+    border-top-color: #4b5563;
+}
+
+/* Card hover effect */
+.card-item-hover {
+  box-shadow: 0 0 10px 2px #3B82F6;
+  border: 2px solid #3B82F6;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Card selected effect */
+.card-item-selected {
+  box-shadow: 0 0 15px 4px #3B82F6;
+  border: 2px solid #3B82F6;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Optional: smooth hover for normal cards */
+.card-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.p-dataview .p-paginator {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--surface-card); /* match your card background */
+}

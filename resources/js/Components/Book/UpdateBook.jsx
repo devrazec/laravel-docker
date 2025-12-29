@@ -17,6 +17,8 @@ import { Toast } from 'primereact/toast';
 const UpdateBook = () => {
     const {
         selectedBook,
+        dataBook,
+        setDataBook,
         modalBookCreate, setModalBookCreate,
         modalBookShow, setModalBookShow,
         modalBookUpdate, setModalBookUpdate,
@@ -101,7 +103,7 @@ const UpdateBook = () => {
 
             <Modal show={modalBookUpdate} onClose={() => setModalBookUpdate(false)} size="lg" dismissible>
 
-                <div className="rounded-xl border-4 border-blue-500 overflow-hidden">
+                <div className="rounded-xl border-4 border-blue-500">
 
                     <ModalHeader className="dark:bg-gray-700">
                         Update Book
@@ -254,15 +256,6 @@ const UpdateBook = () => {
                                 <Button color="blue" type="submit" disabled={processing}>
                                     <HiCheckCircle className="mr-2 h-4 w-4" />
                                     {processing ? 'Saving...' : 'Save'}
-                                </Button>
-                                <Button
-                                    color="gray"
-                                    onClick={() => {
-                                        setModalBookUpdate(false);
-                                    }}
-                                >
-                                    <HiXCircle className="mr-2 h-4 w-4" />
-                                    Close
                                 </Button>
                             </div>
                         </ModalFooter>

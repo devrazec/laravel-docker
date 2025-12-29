@@ -63,9 +63,12 @@ class BookController extends Controller
             'filename' => $filename,
         ]);
 
+
         //return response()->json(['message' => 'Book created successfully.']);
         //return back()->with('success', 'Book updated successfully.');
-        return redirect()->route('books.index', $book)->with('success', 'Updated');
+        //return redirect()->route('books.index', $book)->with('success', 'Updated');
+
+        return redirect()->route('books.index');
     }
 
     /**
@@ -135,6 +138,8 @@ class BookController extends Controller
         $book->detail   = $validated['detail'] ?? null;
 
         $book->save();
+
+        //return back();
 
         return redirect()
             ->route('books.index')

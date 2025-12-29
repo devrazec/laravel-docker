@@ -73,9 +73,9 @@ const CreateBook = () => {
       <Toast ref={toast} position="bottom-right" />
 
       <Modal show={modalBookCreate} onClose={() => setModalBookCreate(false)} dismissible size="lg">
-        <div className="rounded-xl border-4 border-blue-500 overflow-hidden">
+        <div className="rounded-xl border-4 border-blue-500">
           <ModalHeader className="dark:bg-gray-700">Create Book</ModalHeader>
-          
+
           <form onSubmit={submit}>
 
             <ModalBody className="dark:bg-gray-800 space-y-6">
@@ -229,13 +229,6 @@ const CreateBook = () => {
                 <Button color="blue" type="submit" disabled={processing}>
                   <HiCheckCircle className="mr-2 h-4 w-4" />
                   {processing ? 'Saving...' : 'Save'}
-                </Button>
-                <Button color="gray"
-                  onClick={() => {
-                    setModalBookCreate(false);
-                  }}>
-                  <HiXCircle className="mr-2 h-4 w-4" />
-                  Close
                 </Button>
               </div>
             </ModalFooter>

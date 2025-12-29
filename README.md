@@ -47,6 +47,10 @@ php artisan serve
 
 npm run dev
 
+-- Run Frontend and Bankend
+
+composer run dev
+
 -- Flowbite UI
 
 npm i -S flowbite-react
@@ -80,6 +84,14 @@ laravel-docker
 
 git add -f storage/app/private/books
 
+-- Remove Packages
+
+npm uninstall socket.io-client
+
+npm uninstall @laravel/echo-react --save-dev
+
+composer remove laravel/reverb
+
 ```
 
 # CRUD
@@ -101,10 +113,36 @@ php artisan make:seeder BooksSeeder
 php artisan migrate:fresh
 php artisan db:seed --class=BooksSeeder
 
+-- HTTPS on Production
+
 php artisan make:middleware TrustProxies
 
+```
+
+# Laravel Reverb + Broadcasting
 
 ```
+php artisan install:broadcasting
+Which broadcasting driver would you like to use? Laravel Reverb  
+
+php artisan make:event BookUpdated
+php artisan make:observer BookObserver --model=Book
+
+php artisan vendor:publish --tag=reverb-config
+
+php artisan reverb:start | stop | status
+
+npm i -D axios
+
+npm i -S socket.io-client
+
+-- Install Reverb
+
+composer require beyondcode/laravel-websockets
+php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="config"
+
+```
+
 
 # Web Interface
 
@@ -113,8 +151,6 @@ http://127.0.0.1:8080/
 ![Pic1](./public/image/pic1.png)
 ![Pic2](./public/image/pic2.png)
 ![Pic3](./public/image/pic3.png)
-![Pic4](./public/image/pic4.png)
-![Pic5](./public/image/pic5.png)
 
 # Project
 

@@ -43,6 +43,7 @@ import ShowBook from './ShowBook';
 const IndexBook = () => {
   const {
     dataBook,
+    setDataBook,
     bookLayout,
     selectedBook,
     setSelectedBook,
@@ -68,10 +69,14 @@ const IndexBook = () => {
 
   useEffect(() => {
     setFirstRecord(0); // reset to first page
-    setNumberRecords(20); // default rows per page
+    setNumberRecords(12); // default rows per page
     setTotalRecords(filteredBook.length);
-    setData(filteredBook.slice(0, 20)); // first page
+    setData(filteredBook.slice(0, 12)); // first page
   }, [filteredBook]);
+
+  function applyDiscount(price, percent = 20) {
+    return Math.round(price - (price * percent) / 100);
+  }
 
   const gridClass = mapPanel
     ? 'w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/3'
@@ -162,7 +167,7 @@ const IndexBook = () => {
                 </span>
               </span>
 
-              <Tag value="-10%" severity="info" />
+              <Tag value={`-${applyDiscount(book.price)}%`} severity="info" />
             </div>
 
             {/* Author */}
@@ -219,7 +224,7 @@ const IndexBook = () => {
               <span>{book.category}</span>
             </div>
 
-            <Tag value="-10%" severity="info" />
+            <Tag value={`-${applyDiscount(book.price)}%`} severity="info" />
           </div>
 
           {/* Image */}
@@ -324,7 +329,7 @@ const IndexBook = () => {
             rows={numberRecords}
             first={firstRecord}
             totalRecords={totalRecords}
-            rowsPerPageOptions={[10, 20, 30]}
+            rowsPerPageOptions={[12, 24, 36]}
             onPage={onPage}
             header={header()}
           />

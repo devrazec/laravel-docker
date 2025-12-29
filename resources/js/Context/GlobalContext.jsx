@@ -4,8 +4,6 @@ import { useThemeMode } from 'flowbite-react';
 import { Inertia } from '@inertiajs/inertia';
 import { Toast } from 'primereact/toast';
 
-import dataBookJson from '../../../database/data-book.json';
-
 export const GlobalContext = createContext();
 
 export function GlobalProvider({ children }) {
@@ -14,7 +12,7 @@ export function GlobalProvider({ children }) {
   const [themeMode, setThemeMode] = useState(() => mode || 'dark');
 
   //const [dataBook, setDataBook] = useState(dataBookJson.slice(0, 100));
-  const [dataBook, setDataBook] = useState([]);
+  const [dataBook, setDataBook] = useState([])
 
   const [selectedBook, setSelectedBook] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState(null);

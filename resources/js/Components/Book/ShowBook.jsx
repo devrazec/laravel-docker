@@ -32,7 +32,7 @@ const ShowBook = () => {
             size="lg"
             dismissible
         >
-            <div className="rounded-xl border-4 border-blue-500 overflow-hidden">
+            <div className="rounded-xl border-4 border-blue-500">
                 <ModalHeader className="dark:bg-gray-700">
                     Show Book
                 </ModalHeader>
@@ -131,13 +131,6 @@ const ShowBook = () => {
                         >
                             <HiPencilAlt className="mr-2 h-4 w-4" />
                             Edit
-                        </Button>
-                        <Button
-                            color="gray"
-                            onClick={() => setModalBookShow(false)}
-                        >
-                            <HiXCircle className="mr-2 h-4 w-4" />
-                            Close
                         </Button>
                     </div>
 
