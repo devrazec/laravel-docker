@@ -132,6 +132,13 @@ const ShowBook = () => {
                             <HiPencilAlt className="mr-2 h-4 w-4" />
                             Edit
                         </Button>
+                        <Button
+                            color="gray" className="hidden md:inline-flex"
+                            onClick={() => setModalBookShow(false)}
+                        >
+                            <HiXCircle className="mr-2 h-4 w-4" />
+                            Close
+                        </Button>
                     </div>
 
                 </ModalFooter>

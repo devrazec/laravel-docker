@@ -230,6 +230,13 @@ const CreateBook = () => {
                   <HiCheckCircle className="mr-2 h-4 w-4" />
                   {processing ? 'Saving...' : 'Save'}
                 </Button>
+                <Button color="gray" className="hidden md:inline-flex"
+                  onClick={() => {
+                    setModalBookCreate(false);
+                  }}>
+                  <HiXCircle className="mr-2 h-4 w-4" />
+                  Close
+                </Button>
               </div>
             </ModalFooter>
           </form>
