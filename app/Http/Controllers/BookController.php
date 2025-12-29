@@ -18,6 +18,7 @@ class BookController extends Controller
         ->orderBy('id', 'desc') // 'asc' for ascending, 'desc' for descending
         ->limit(100)
         ->get();
+
         //$books = Book::all(); // Fetch all books
 
         return Inertia::render('Books/Index', [
@@ -62,7 +63,6 @@ class BookController extends Controller
             'detail' => $request->detail,
             'filename' => $filename,
         ]);
-
 
         //return response()->json(['message' => 'Book created successfully.']);
         //return back()->with('success', 'Book updated successfully.');

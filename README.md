@@ -119,31 +119,6 @@ php artisan make:middleware TrustProxies
 
 ```
 
-# Laravel Reverb + Broadcasting
-
-```
-php artisan install:broadcasting
-Which broadcasting driver would you like to use? Laravel Reverb  
-
-php artisan make:event BookUpdated
-php artisan make:observer BookObserver --model=Book
-
-php artisan vendor:publish --tag=reverb-config
-
-php artisan reverb:start | stop | status
-
-npm i -D axios
-
-npm i -S socket.io-client
-
--- Install Reverb
-
-composer require beyondcode/laravel-websockets
-php artisan vendor:publish --provider="BeyondCode\LaravelWebSockets\WebSocketsServiceProvider" --tag="config"
-
-```
-
-
 # Web Interface
 
 http://127.0.0.1:8080/
